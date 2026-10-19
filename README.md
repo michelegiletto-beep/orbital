@@ -2,6 +2,10 @@ Orbital Mission Simulation Hub
 
 [Project and screenshots](https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital), [browser evaluation](https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/), [technical report](https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf) and [offline application](https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital.zip).
 
+![Deorbit planning in Orbital](docs/screenshots/deorbit-plan.jpg)
+
+[Download the offline application](distribution/Orbital.zip) and [read the technical report](publication/Orbital-technical-report.pdf).
+
 Version 0.3.0 is an engineering evaluation release for technical training with synthetic spacecraft. Orbital combines a dark English workspace, a mission library, customer scenario authoring, numerical execution and assessment from the recorded commands.
 
 Docking, passive recovery and deorbiting use the shared nonlinear inertial dynamics engine. Proximity exercises measure the relative state of two propagated vehicles, apply bounded guidance thrust, consume propellant and check ordered hold points before explicit capture. Recovery includes bounded scalar roll tracking. Deorbiting supports impulsive and finite burns and records the descending 120 km interface. The scenario editor configures vehicle properties, initial relative state, approach limits, maneuver budget and assessment thresholds for each client revision.
