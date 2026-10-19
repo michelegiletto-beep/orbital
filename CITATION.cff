@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Cite the exact Orbital version and source revision inspected. Original software rights remain proprietary."
+type: software
+title: "Orbital Mission Simulation Hub"
+version: 0.3.0
+authors:
+  - given-names: Michele
+    family-names: Giletto
+abstract: "Engineering training software for versioned client scenarios, nonlinear orbital and proximity exercises, docking, passive recovery, disposal and reproducible assessment. Not qualified for operational flight decisions."
+keywords:
+  - orbital dynamics
+  - spacecraft training
+  - rendezvous
+  - docking
+  - satellite recovery
+  - deorbiting
+
+repository-code: "https://github.com/michelegiletto-beep/orbital"
+url: "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital"

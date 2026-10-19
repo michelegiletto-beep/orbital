@@ -1,0 +1,17 @@
+Orbital 0.3 advanced missions
+
+Docking, passive recovery and deorbiting use the shared nonlinear inertial engine. Their scenarios belong to versioned mission definitions in a tenant library. Client collections organize those definitions; they are not separate access control domains.
+
+Create a client collection, assign a template, open Mission designer and choose Configure advanced scenario. Set the vehicle properties, model, initial relative state, holds, corridor, capture or disposal criteria and exactly three objective labels. The main mission fields and detailed settings must agree. Save the revision before launching it. The server accepts a mission identifier and revision rather than an arbitrary caller supplied final state.
+
+Docking acquires ordered holds under bounded finite thrust. Capture requires a negative along track approach inside the configured corridor, safe distance, low relative speed, alignment and relative rotation. A corridor excursion prevents full docking achievement even if a later capture is accepted. Recovery adds measured scalar roll synchronization; it does not simulate a mechanical grapple or torque the target. Deorbiting accepts an impulse or finite thrust and ends at the localized descending 120 km interface. Atmospheric flight and ground risk are outside the model.
+
+The command journal records the precommand time and sequence. Every accepted server command creates a new signed binding over the source mission, scenario, journal, report and owner resource. The command request supplies the current sequence. A stale request returns a conflict, an invalid command preserves the previous state and a terminal mission rejects further commands. Restore verifies the newest receipt and replays the journal. Later scenario edits do not change the retained run.
+
+The HTTP workflow is defined in docs/openapi.yaml. Create with POST /v1/mission-runs and a JSON body containing missionId and revision. Execute with POST /v1/mission-runs/{id}/commands and a JSON body containing sequence and command. Read a run with GET /v1/mission-runs/{id}, its assessment with GET /v1/mission-runs/{id}/report and authorized run summaries with GET /v1/mission-runs. Supported commands are advance, guide, impulse, attitude, capture, deorbit and abort. Commands use metres, metres per second, newtons and seconds as stated in the contract; internal inertial integration uses kilometres, kilograms and seconds.
+
+After action retains measured objectives, hold evidence, resource expenditure, deviations, entry information and a recommendation. Journal replay reconstructs earlier states without enabling live commands from historical views. Exported archives contain the scenario and journal. A device calculation uses the same kernel in a worker but has no server receipt. A previously signed server run requires reconnection to restore; it is not silently converted into an unsigned result.
+
+The model uses central gravity, optional J2, static engineering drag and ideal thrust. Attitude is a bounded scalar roll model. Capture is a terminal logical event. No navigation sensor, flexible structure, contact force, full rigid body attitude or operational vehicle command is implemented. The verification record distinguishes implementation tests from independent physical validation and institutional accreditation.
+
+Original software rights and any evaluation permission are stated in the included LICENSE and EVALUATION.md. A technical demonstration does not establish commercial demand or operational qualification.

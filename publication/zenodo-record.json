@@ -1,0 +1,44 @@
+{
+  "status": "prepared locally, not deposited",
+  "software_version": "0.3.0",
+  "report_version": "0.3.0",
+  "record_choice": "technical report first, software as a separate related record if distribution terms are settled",
+  "title": "Orbital Mission Simulation Hub: Configurable training scenarios for orbital proximity and disposal",
+  "creators": [
+    {
+      "given_name": "Michele",
+      "family_name": "Giletto"
+    }
+  ],
+  "resource_type": "publication-technicalnote",
+  "language": "eng",
+  "description": "Technical report describing a local engineering training application that combines versioned client scenario authoring, numerical orbital execution and replayable assessment. It documents the central gravity, J2, engineering drag and maneuver model, docking and recovery with propagated spacecraft, deorbiting to a descending atmospheric interface, provenance boundaries and the verification approach. It does not claim independent flight qualification, measured educational benefit, customer adoption or government accreditation.",
+  "keywords": [
+    "spacecraft training",
+    "orbital dynamics",
+    "rendezvous",
+    "docking",
+    "satellite recovery",
+    "deorbiting",
+    "scenario authoring",
+    "reproducibility"
+  ],
+  "rights": {
+    "title": "All rights reserved",
+    "description": "Copyright 2026 Michele Giletto. Original software and documentation remain proprietary. The software LICENSE references EVALUATION.md, which grants 30 days of internal nonoperational evaluation and local scenario creation while excluding redistribution and commercial deployment. The technical report retains all rights reserved. Third party components retain their own licenses. Use the applicable custom rights statement rather than the default Creative Commons license in the deposit form."
+  },
+  "files_visibility": "public report only after the release gate",
+  "report_files": [
+    "Orbital-technical-report.pdf",
+    "model-evidence.json"
+  ],
+  "publication_date_rule": "Use the actual first public date. Do not treat preparation date as publication date.",
+  "doi_rule": "Reserve through an authenticated draft if needed. No DOI exists in this preparation record.",
+  "related_identifiers_rule": "Insert verified software repository and exact release URLs after publication. Do not use a report DOI for a separate software object.",
+  "metadata_note": "Preparation record only. Field vocabulary must be selected and validated in the active Zenodo deposit form. This is not a ready API request and does not create a draft.",
+  "account_requirements": [
+    "An authenticated Zenodo account controlled by Michele Giletto",
+    "Permission to publish the selected original files",
+    "GitHub account linkage only if automatic repository archiving is deliberately selected"
+  ]
+}

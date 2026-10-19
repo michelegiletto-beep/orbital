@@ -1,0 +1,25 @@
+Il lavoro su Orbital
+
+Su Orbital ho portato aggancio, recupero di un veicolo passivo e uscita dall'orbita nello stesso motore di simulazione. Lo scenario si modifica per cliente, viene eseguito e lascia un rapporto con misure, comandi e riproduzione degli eventi.
+
+Il lavoro è partito da una necessità concreta. Chi prepara un'esercitazione deve scegliere le condizioni iniziali, fissare i limiti e spiegare perché il risultato sia accettabile. Volevo tenere insieme queste decisioni e ciò che accade durante la prova.
+
+L'editor permette di creare una raccolta per il cliente e modificare veicoli, masse, propellente, distanze, velocità e criteri di completamento. Ogni revisione conserva la propria definizione. Il risultato resta collegato ai parametri effettivamente usati, anche se lo scenario viene modificato in seguito.
+
+Per verificare questo passaggio ho usato uno scenario sintetico con un veicolo da 800 chilogrammi, a 180 metri dal bersaglio. Ho impostato punti di attesa a 80 metri, 12 metri e 20 centimetri. Per accettare l'aggancio, la distanza doveva essere inferiore a 40 centimetri e la velocità relativa inferiore a 3 centimetri al secondo.
+
+La prova si è conclusa dopo 336 secondi a circa 22,3 centimetri dal bersaglio, con una velocità relativa di 2,35 millimetri al secondo e 1,832 chilogrammi di propellente consumati. La riproduzione dei comandi ha ricostruito lo stesso stato. Sono valori che permettono di controllare l'esito rispetto ai limiti scelti.
+
+Un istruttore può partire da questo esercizio, cambiare la distanza iniziale o rendere più stretto il limite di velocità e osservare il risultato. Nel recupero può aggiungere la rotazione del bersaglio e verificare l'allineamento del veicolo che si avvicina. Per l'uscita dall'orbita può confrontare una manovra impulsiva con una manovra a spinta finita, tenendo conto della massa e del propellente.
+
+Un tentativo incompleto o interrotto può essere conservato per la valutazione. La cattura viene rifiutata quando non rispetta i limiti impostati. Mi interessa che chi ha eseguito l'esercizio possa rivedere una scelta, individuare lo scostamento e ripetere la prova. Per questo il rapporto e la riproduzione fanno parte dello stesso percorso.
+
+L'interfaccia è scura e in inglese. Le immagini della Terra e le risorse necessarie alla visualizzazione sono nel pacchetto. La consegna comprende inventario dei componenti, licenze di terzi e verifica dell'integrità dei file. Si può quindi valutare l'applicazione anche in una rete che non utilizza servizi grafici esterni.
+
+Il modello è destinato alla formazione tecnica. Include gravità con J2 e resistenza atmosferica statica semplificata. L'assetto è rappresentato su un solo asse e l'uscita dall'orbita termina alla quota atmosferica di 120 chilometri. Non calcola riscaldamento, contatto fisico o impatto al suolo e non è qualificato per decisioni di volo. Le prove documentano il funzionamento dell'implementazione; validazione fisica indipendente, benefici formativi e utilità per un cliente restano da verificare.
+
+Il rapporto ESA del 2026 descrive una crescita del traffico orbitale e delle attività di fine vita. È un contesto concreto per esercitarsi su avvicinamento, recupero e smaltimento dei veicoli. La domanda per questo specifico prodotto va verificata sul lavoro di chi lo userà.
+
+La licenza consente trenta giorni di valutazione interna, con esecuzione e creazione dei propri scenari, senza registrazione o attivazione esterna. Il codice rimane di mia proprietà. Redistribuzione e impiego commerciale richiedono un permesso distinto.
+
+Cerco un primo confronto con chi prepara addestramento o procedure satellitari. Partirei da un esercizio già utilizzato, con i suoi criteri di accettazione. Misurerei il tempo necessario a prepararlo e la qualità delle informazioni disponibili alla fine. Su questo si può decidere se ha senso adattare Orbital alle procedure del cliente e costruire una libreria dedicata.

@@ -1,0 +1,46 @@
+services:
+  api:
+    image: orbital:0.1.0
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4318
+      DATA_DIR: /data
+      WEB_ORIGIN: ${WEB_ORIGIN:?Set the approved HTTPS web origin}
+      OIDC_ISSUER: ${OIDC_ISSUER:?Set the internal issuer}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:?Set the API audience}
+      OIDC_JWKS_URI: ${OIDC_JWKS_URI:?Set the internal JWKS endpoint}
+      AUDIT_TENANT: ${AUDIT_TENANT:?Set the audit tenant}
+    volumes:
+      - orbital-data:/data
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [perimeter]
+  web:
+    image: orbital:0.1.0
+    command: [node, apps/web/serve.mjs]
+    environment:
+      WEB_HOST: 0.0.0.0
+      API_URL: http://api:4318
+    ports: [127.0.0.1:4317:4317]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [perimeter]
+    healthcheck:
+      test:
+        [
+          CMD,
+          node,
+          -e,
+          "fetch('http://127.0.0.1:4317').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+volumes:
+  orbital-data:
+networks:
+  perimeter:
+    internal: true

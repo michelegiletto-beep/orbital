@@ -1,0 +1,25 @@
+name: Orbital verification
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: [self-hosted, orbital, isolated]
+    defaults:
+      run:
+        working-directory: products/orbital
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - run: node --version
+      - run: npm ci --ignore-scripts
+      - run: npm run verify
+      - run: npm audit --audit-level=moderate
+      - run: npm run sbom
+      - run: docker build --file infra/Dockerfile --tag orbital:${{ github.sha }} .
+      - run: syft orbital:${{ github.sha }} --output cyclonedx-json=image-sbom.json
+      - run: grype sbom:image-sbom.json --fail-on medium
+      - run: docker save --output orbital-image.tar orbital:${{ github.sha }}
+      - run: cosign sign-blob --yes --tlog-upload=false --key env://COSIGN_PRIVATE_KEY --bundle orbital-image.bundle.json orbital-image.tar
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}

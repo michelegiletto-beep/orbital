@@ -1,0 +1,2135 @@
+openapi: 3.1.0
+info:
+  title: Orbital API
+  version: 0.3.0
+  description: Synthetic training API for client libraries, nonlinear docking, recovery and disposal
+    missions, legacy exercises, verified flight archives and signed assessments. Client collections
+    are editorial groups inside an authenticated tenant. No flight qualification or government
+    accreditation is claimed.
+servers:
+  - url: http://127.0.0.1:4318
+security:
+  - bearerAuth: []
+  - sessionCookie: []
+paths:
+  /health:
+    get:
+      security: []
+      operationId: health
+      responses:
+        "200":
+          description: Service health and model version.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - model
+                properties:
+                  status:
+                    type: string
+                    const: ok
+                  model:
+                    type: string
+  /v1/config:
+    get:
+      security: []
+      operationId: configuration
+      responses:
+        "200":
+          description: Authentication mode and model version. No secrets returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth:
+                    type: string
+                    enum:
+                      - local
+                      - oidc
+                  loginConfigured:
+                    type: boolean
+                  model:
+                    type: string
+  /v1/auth/session:
+    get:
+      security: []
+      operationId: currentIdentity
+      responses:
+        "200":
+          description: Authentication status, optionally including subject.
+  /v1/auth/login:
+    get:
+      security: []
+      operationId: login
+      responses:
+        "302":
+          description: Redirect to configured identity provider with PKCE and state.
+        "503":
+          $ref: "#/components/responses/Error"
+  /v1/auth/callback:
+    get:
+      security: []
+      operationId: callback
+      parameters:
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "302":
+          description: Set HttpOnly session cookie and return to configured web origin.
+        "401":
+          $ref: "#/components/responses/Error"
+  /v1/auth/logout:
+    post:
+      operationId: logout
+      description: Exact configured Origin is required.
+      responses:
+        "200":
+          description: Browser session invalidated.
+        "403":
+          $ref: "#/components/responses/Error"
+  /v1/sessions:
+    post:
+      operationId: createSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - mode
+                - difficulty
+              properties:
+                mode:
+                  type: string
+                  enum:
+                    - guided
+                    - practice
+                difficulty:
+                  type: string
+                  enum:
+                    - standard
+                    - precision
+                configuration:
+                  $ref: "#/components/schemas/OrbitalConfiguration"
+                mission:
+                  $ref: "#/components/schemas/Mission"
+      responses:
+        "201":
+          description: Session created. Response includes id and session fields.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Session"
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+        "400":
+          $ref: "#/components/responses/Error"
+        "401":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+        "429":
+          $ref: "#/components/responses/Error"
+      description: Accepts an optional orbital mission snapshot. Its configuration is derived from that
+        mission and, if also supplied, must match exactly. New receipts bind the session,
+        authorization resource and mission snapshot.
+  /v1/sessions/{id}:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: readSession
+      responses:
+        "200":
+          description: Authorized session snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "401":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+        "404":
+          $ref: "#/components/responses/Error"
+  /v1/sessions/{id}/commands:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    post:
+      operationId: executeCommand
+      description: Single resource writer. Body limit 16 KiB. Session command limit 10000.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Command"
+      responses:
+        "200":
+          description: Persisted authoritative result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          $ref: "#/components/responses/Error"
+        "401":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+        "404":
+          $ref: "#/components/responses/Error"
+        "429":
+          $ref: "#/components/responses/Error"
+  /v1/sessions/{id}/report:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: assessment
+      responses:
+        "200":
+          description: Computed AAR and competency evidence.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                  complete:
+                    type: boolean
+                  score:
+                    type: integer
+                    minimum: 0
+                    maximum: 100
+                  objectives:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        competency:
+                          type: string
+                        achieved:
+                          type: boolean
+                  metrics:
+                    type: object
+                    properties:
+                      orbitError:
+                        type:
+                          - number
+                          - "null"
+                      deltaV:
+                        type: number
+                      burns:
+                        type: integer
+                      propellant:
+                        type: number
+                      duration:
+                        type: number
+                  recommendation:
+                    type: string
+                  nextDifficulty:
+                    type: string
+                    enum:
+                      - standard
+                      - precision
+        "401":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+  /v1/sessions/{id}/replay:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: replayEvents
+      responses:
+        "200":
+          description: Initial state and ordered events.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                  initial:
+                    $ref: "#/components/schemas/State"
+                  events:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Event"
+  /v1/sessions/{id}/stream:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: stream
+      description: WebSocket upgrade with exact Origin and cookie or bearer identity. Read-only state and
+        sequence messages. Maximum eight observers per session and fifteen minutes lifetime. No
+        token in URL.
+      responses:
+        "101":
+          description: WebSocket established.
+        "403":
+          description: Upgrade denied.
+  /v1/audit:
+    get:
+      operationId: exportAudit
+      description: Restricted to auditor role in configured global audit tenant. Exports records and public key.
+      responses:
+        "200":
+          description: Signed audit chain and PEM public key.
+        "401":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+  /v1/library:
+    get:
+      operationId: readLibrary
+      responses:
+        "200":
+          description: Tenant mission library with revision.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Library"
+      description: Verifies the newest tenant library commit. Modified content, revision reset and missing
+        committed files fail closed. Client groups do not create separate authorization domains.
+    put:
+      operationId: saveLibrary
+      description: Requires designer role. Auditors cannot mutate. All references and physical transfer
+        constraints are validated. Body limit 4 MiB. Saves require the current revision as an
+        unquoted numeric If-Match header. A stale revision returns409.
+      parameters:
+        - name: If-Match
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Library"
+      responses:
+        "200":
+          description: Updated library with incremented revision and audit receipt header.
+        "400":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+        "409":
+          $ref: "#/components/responses/Error"
+  /v1/deliveries/{clientId}:
+    get:
+      operationId: clientDelivery
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+      description: Designer only. Exports the verified selected client collection, advanced settings,
+        compiled assets, local Earth imagery, component inventory, license and evaluation terms,
+        notices, manifest, signature, verifier and loopback launcher. Device calculation is
+        available; the package contains no federated API service. Public key trust requires a
+        separate channel.
+      responses:
+        "200":
+          description: Offline ZIP delivery.
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        "403":
+          $ref: "#/components/responses/Error"
+        "404":
+          $ref: "#/components/responses/Error"
+  /v1/proximity:
+    post:
+      operationId: createProximityMission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Mission"
+      responses:
+        "201":
+          description: Authoritative proximity session and UUID.
+        "400":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+      description: Legacy linear circular relative motion executor, retained for inspection, separation
+        and compatibility. The current Hub launches docking and recovery through mission-runs
+        instead.
+  /v1/proximity/{id}:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: readProximityMission
+      responses:
+        "200":
+          description: Signed persisted proximity session with ordered command events and relative track.
+        "403":
+          $ref: "#/components/responses/Error"
+        "404":
+          $ref: "#/components/responses/Error"
+  /v1/proximity/{id}/commands:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    post:
+      operationId: executeRelativeCommand
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RelativeCommand"
+      responses:
+        "200":
+          description: Authoritative session after accepted command.
+        "400":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+  /v1/proximity/{id}/report:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: relativeAssessment
+      responses:
+        "200":
+          description: Legacy competency checks, completion, score, recommendation and relative flight metrics.
+        "403":
+          $ref: "#/components/responses/Error"
+  /v1/results:
+    get:
+      operationId: listResults
+      description: Verified records owned by the subject. Instructors and designers may review tenant records.
+      responses:
+        "200":
+          description: Array of signed result records.
+        "403":
+          $ref: "#/components/responses/Error"
+    post:
+      operationId: archiveResult
+      description: Archives a legacy orbital or relative result. The source mission identity and grade are
+        authoritative. A different supplied mission identity is rejected. Source-bound mission
+        snapshots allow mission to be omitted; plain orbital configuration sessions require a
+        matching mission from the verified current library. Existing records are verified before an
+        idempotent response. Advanced assessments are accessed through mission-runs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - kind
+                - sourceId
+              properties:
+                kind:
+                  type: string
+                  enum:
+                    - orbital
+                    - relative
+                sourceId:
+                  type: string
+                  format: uuid
+                mission:
+                  $ref: "#/components/schemas/Mission"
+      responses:
+        "200":
+          description: Previously stored result for this source.
+        "201":
+          description: Result stored with signed receipt.
+        "400":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+  /v1/advanced:
+    get:
+      operationId: listFlightCheckpoints
+      description: Lists authorized checkpoint metadata after verifying each audit receipt. At most 1000
+        checkpoint files are scanned.
+      responses:
+        "200":
+          description: Checkpoints ordered by creation date, newest first.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FlightCheckpoint"
+        "401":
+          $ref: "#/components/responses/Error"
+    post:
+      operationId: verifyFlightCheckpoint
+      description: Reconstructs initial elements and replays the complete command journal. Persists a
+        signed digest of the archive, computed workspace and authorization resource. Maximum body 4
+        MiB, 2000 commands and 400000 estimated spacecraft integration steps.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FlightArchive"
+      responses:
+        "201":
+          description: Checkpoint identifier, computed metrics, digest and signed audit receipt.
+        "400":
+          $ref: "#/components/responses/Error"
+        "403":
+          $ref: "#/components/responses/Error"
+  /v1/advanced/{id}:
+    get:
+      operationId: restoreFlightCheckpoint
+      parameters:
+        - $ref: "#/components/parameters/SessionId"
+      description: Verifies the stored receipt and replays the archive again. Returns the canonical
+        archive and reconstructed workspace.
+      responses:
+        "200":
+          description: Verified checkpoint including archive, workspace, receipt and digest.
+        "403":
+          $ref: "#/components/responses/Error"
+        "404":
+          $ref: "#/components/responses/Error"
+  /v1/mission-runs:
+    get:
+      operationId: listAdvancedMissionRuns
+      description: Lists authorized signed runs within the identity tenant, including incomplete attempts.
+        Verifies newest receipts under per run locks. Missing committed files, altered records and
+        rollback fail closed. At most 1000 runs per tenant.
+      responses:
+        "200":
+          description: Authorized runs ordered newest first.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                  - runs
+                properties:
+                  runs:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/MissionRunSummary"
+                    minItems: 0
+                    maxItems: 1000
+        "401": &a1
+          $ref: "#/components/responses/Error"
+        "403": *a1
+        "429": *a1
+        "500": *a1
+    post:
+      operationId: createAdvancedMissionRun
+      description: Operator only. Resolves the exact mission revision from the verified tenant library,
+        then signs its retained snapshot, canonical scenario, empty journal, computed report and
+        owner resource. Supported families are docking, recovery and deorbit. Stale revisions return
+        409. Client collections are editorial groups, not authorization boundaries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - missionId
+                - revision
+              properties:
+                missionId:
+                  type: string
+                  minLength: 1
+                  maxLength: 80
+                revision:
+                  type: integer
+                  minimum: 1
+            example:
+              missionId: docking-axial
+              revision: 1
+      responses:
+        "201":
+          description: Persisted authoritative advanced mission.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MissionRunEnvelope"
+        "400": *a1
+        "401": *a1
+        "403": *a1
+        "404": *a1
+        "409": *a1
+        "429": *a1
+        "500": *a1
+  /v1/mission-runs/{id}:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: readAdvancedMissionRun
+      description: Verifies signed resource and newest receipt, then replays scenario and journal and
+        checks the computed report. A later library edit does not replace the retained snapshot.
+      responses:
+        "200":
+          description: Restored authoritative advanced mission.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MissionRunEnvelope"
+        "401": *a1
+        "403": *a1
+        "404": *a1
+        "429": *a1
+        "500": *a1
+  /v1/mission-runs/{id}/commands:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    post:
+      operationId: executeAdvancedMissionCommand
+      description: Owned operator run only. Exact expected sequence is required. Commands are serialized.
+        Invalid commands return 400 without mutation; a stale sequence or terminated run returns409.
+        The 24 hour mission horizon and 2000 command limit are enforced. Identity is rechecked after
+        integration before commit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+                - sequence
+                - command
+              properties:
+                sequence:
+                  type: integer
+                  minimum: 0
+                  maximum: 2000
+                command:
+                  $ref: "#/components/schemas/AdvancedMissionCommand"
+            example:
+              sequence: 0
+              command:
+                type: guide
+                waypoint: 0
+      responses:
+        "200":
+          description: Accepted command and newly signed authoritative state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MissionRunEnvelope"
+        "400": *a1
+        "401": *a1
+        "403": *a1
+        "404": *a1
+        "409": *a1
+        "429": *a1
+        "500": *a1
+  /v1/mission-runs/{id}/report:
+    parameters:
+      - $ref: "#/components/parameters/SessionId"
+    get:
+      operationId: readAdvancedMissionReport
+      description: Recomputes assessment from the authorized replayed snapshot. No caller supplied final
+        grade is accepted.
+      responses:
+        "200":
+          description: Measured assessment with source identity and receipt.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MissionReportEnvelope"
+        "401": *a1
+        "403": *a1
+        "404": *a1
+        "429": *a1
+        "500": *a1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: orbital_session
+  parameters:
+    SessionId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Error:
+      description: Request rejected. Internal errors do not reveal details.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+  schemas:
+    Vector:
+      type: array
+      items:
+        type: number
+      minItems: 3
+      maxItems: 3
+    State:
+      type: object
+      required:
+        - position
+        - velocity
+        - time
+        - mass
+        - spent
+        - burns
+        - impacted
+      properties:
+        position:
+          $ref: "#/components/schemas/Vector"
+        velocity:
+          $ref: "#/components/schemas/Vector"
+        time:
+          type: number
+          minimum: 0
+        mass:
+          type: number
+          minimum: 700
+        spent:
+          type: number
+          minimum: 0
+        burns:
+          type: integer
+          minimum: 0
+        impacted:
+          type: boolean
+    Command:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - seconds
+          properties:
+            type:
+              const: advance
+            seconds:
+              type: integer
+              minimum: 2
+              maximum: 86400
+              multipleOf: 2
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - deltaV
+            - direction
+          properties:
+            type:
+              const: burn
+            deltaV:
+              type: number
+              minimum: 0.1
+              maximum: 350
+            direction:
+              type: string
+              enum:
+                - prograde
+                - retrograde
+                - radial
+                - normal
+    Event:
+      type: object
+      required:
+        - sequence
+        - time
+        - command
+      properties:
+        sequence:
+          type: integer
+          minimum: 0
+        time:
+          type: number
+          minimum: 0
+        command:
+          $ref: "#/components/schemas/Command"
+    Session:
+      type: object
+      required:
+        - initial
+        - state
+        - events
+        - mode
+        - difficulty
+        - configuration
+      properties:
+        initial:
+          $ref: "#/components/schemas/State"
+        state:
+          $ref: "#/components/schemas/State"
+        events:
+          type: array
+          maxItems: 10000
+          items:
+            $ref: "#/components/schemas/Event"
+        mode:
+          type: string
+          enum:
+            - guided
+            - practice
+        difficulty:
+          type: string
+          enum:
+            - standard
+            - precision
+        configuration:
+          $ref: "#/components/schemas/OrbitalConfiguration"
+    Mission:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - revision
+        - title
+        - family
+        - clientId
+        - description
+        - level
+        - initialAltitude
+        - targetAltitude
+        - inclination
+        - budget
+        - tolerance
+        - initialRange
+        - closingSpeed
+        - objectives
+        - updatedAt
+      properties:
+        id:
+          type: string
+          maxLength: 80
+          pattern: ^[a-zA-Z0-9-]+$
+        revision:
+          type: integer
+          minimum: 1
+        title:
+          type: string
+          minLength: 1
+          maxLength: 90
+        family:
+          type: string
+          enum:
+            - transfer
+            - docking
+            - recovery
+            - deorbit
+            - inspection
+            - avoidance
+        clientId:
+          type: string
+          maxLength: 80
+        description:
+          type: string
+          minLength: 1
+          maxLength: 800
+        level:
+          type: string
+          enum:
+            - basic
+            - intermediate
+            - advanced
+            - base
+            - intermedio
+            - avanzato
+        initialAltitude:
+          type: number
+          minimum: 200
+          maximum: 2000
+        targetAltitude:
+          type: number
+          minimum: 40
+          maximum: 2500
+        inclination:
+          type: number
+          minimum: 0
+          maximum: 180
+        budget:
+          type: number
+          minimum: 1
+          maximum: 1500
+        tolerance:
+          type: number
+          minimum: 0.1
+          maximum: 100
+        initialRange:
+          type: number
+          minimum: 10
+          maximum: 10000
+        closingSpeed:
+          type: number
+          minimum: 0.01
+          maximum: 0.5
+        objectives:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items:
+            type: string
+            maxLength: 160
+        updatedAt:
+          type: string
+          format: date-time
+        advanced:
+          $ref: "#/components/schemas/AdvancedMissionScenario"
+      description: Versioned client library definition. Optional advanced settings are valid only for
+        docking, recovery and deorbit. Main altitude, inclination, budget, range, capture and
+        disposal fields must agree with detailed settings. Changing objective labels retains the
+        selected family numerical rubric.
+    Library:
+      type: object
+      required:
+        - schema
+        - revision
+        - clients
+        - missions
+      properties:
+        schema:
+          const: orbital.library.v1
+        revision:
+          type: integer
+          minimum: 1
+        clients:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: object
+            required:
+              - id
+              - name
+              - createdAt
+            properties:
+              id:
+                type: string
+                maxLength: 80
+              name:
+                type: string
+                maxLength: 80
+              createdAt:
+                type: string
+                format: date-time
+              accentColor:
+                type: string
+                pattern: ^#[0-9a-fA-F]{6}$
+        missions:
+          type: array
+          maxItems: 1000
+          items:
+            $ref: "#/components/schemas/Mission"
+    RelativeCommand:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - seconds
+          properties:
+            type:
+              const: advance
+            seconds:
+              type: integer
+              minimum: 1
+              maximum: 3600
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - axis
+            - deltaV
+          properties:
+            type:
+              const: thrust
+            axis:
+              type: integer
+              enum:
+                - 0
+                - 1
+                - 2
+            deltaV:
+              type: number
+              minimum: -0.5
+              maximum: 0.5
+              not:
+                const: 0
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - waypoint
+          properties:
+            type:
+              const: guide
+            waypoint:
+              type: integer
+              minimum: 0
+              maximum: 2
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              enum:
+                - attitude
+                - capture
+                - observe
+    ForceModel:
+      type: object
+      additionalProperties: false
+      required:
+        - gravity
+        - drag
+        - step
+      properties:
+        gravity:
+          type: string
+          enum:
+            - two-body
+            - j2
+        drag:
+          type: boolean
+        step:
+          type: number
+          minimum: 0.5
+          maximum: 10
+    VehicleSpec:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+        - altitude
+        - eccentricity
+        - inclination
+        - raan
+        - anomaly
+        - mass
+        - dryMass
+        - isp
+        - area
+        - cd
+        - color
+      properties:
+        id:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]{1,64}$
+        name:
+          type: string
+          minLength: 1
+          maxLength: 60
+        altitude:
+          type: number
+          minimum: 160
+          maximum: 42000
+          description: Initial perigee altitude above the 6371 km spherical reference.
+        eccentricity:
+          type: number
+          minimum: 0
+          maximum: 0.7
+        inclination:
+          type: number
+          minimum: 0
+          maximum: 180
+        raan:
+          type: number
+          minimum: 0
+          maximum: 360
+        anomaly:
+          type: number
+          minimum: 0
+          maximum: 360
+        mass:
+          type: number
+          minimum: 1
+          maximum: 100000
+        dryMass:
+          type: number
+          minimum: 0.1
+          description: Must not exceed wet mass.
+        isp:
+          type: number
+          minimum: 50
+          maximum: 5000
+        area:
+          type: number
+          minimum: 0.01
+          maximum: 1000
+        cd:
+          type: number
+          minimum: 0.1
+          maximum: 5
+        color:
+          type: string
+          pattern: ^#[a-fA-F0-9]{6}$
+    FlightManeuver:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - vehicleId
+        - at
+        - kind
+        - direction
+        - deltaV
+        - thrust
+        - duration
+      properties:
+        id:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]{1,64}$
+        vehicleId:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]{1,64}$
+        at:
+          type: number
+          minimum: 0
+          maximum: 604800
+        kind:
+          type: string
+          enum:
+            - impulse
+            - finite
+        direction:
+          type: string
+          enum:
+            - prograde
+            - retrograde
+            - radial
+            - normal
+        deltaV:
+          type: number
+          minimum: 0
+          maximum: 1000
+        thrust:
+          type: number
+          minimum: 0.01
+          maximum: 20000
+        duration:
+          type: number
+          minimum: 1
+          maximum: 3600
+    FlightState:
+      type: object
+      required:
+        - position
+        - velocity
+        - mass
+        - deltaV
+        - entered
+      properties:
+        position:
+          $ref: "#/components/schemas/Vector"
+        velocity:
+          $ref: "#/components/schemas/Vector"
+        mass:
+          type: number
+        deltaV:
+          type: number
+          minimum: 0
+        entered:
+          type: boolean
+    InitialFlightWorkspace:
+      type: object
+      description: Must be the unmodified result of createWorkspace. Canonical state vectors are
+        reconstructed from spacecraft elements and compared before replay.
+      required:
+        - schema
+        - epoch
+        - time
+        - model
+        - vehicles
+        - plan
+        - completed
+        - events
+        - history
+      properties:
+        schema:
+          const: orbital.flight.v2
+        epoch:
+          type: string
+          format: date-time
+        time:
+          const: 0
+        model:
+          $ref: "#/components/schemas/ForceModel"
+        vehicles:
+          type: array
+          minItems: 1
+          maxItems: 8
+          items:
+            type: object
+            required:
+              - spec
+              - state
+            properties:
+              spec:
+                $ref: "#/components/schemas/VehicleSpec"
+              state:
+                $ref: "#/components/schemas/FlightState"
+        plan:
+          type: array
+          maxItems: 0
+        completed:
+          type: array
+          maxItems: 0
+        events:
+          type: array
+          maxItems: 0
+        history:
+          type: array
+          maxItems: 8
+          items:
+            type: object
+    FlightCommand:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - seconds
+          properties:
+            type:
+              const: advance
+            seconds:
+              type: number
+              minimum: 0.001
+              maximum: 86400
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - maneuvers
+          properties:
+            type:
+              const: plan
+            maneuvers:
+              type: array
+              maxItems: 32
+              items:
+                $ref: "#/components/schemas/FlightManeuver"
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - model
+          properties:
+            type:
+              const: model
+            model:
+              $ref: "#/components/schemas/ForceModel"
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - vehicle
+          properties:
+            type:
+              const: vehicle
+            vehicle:
+              $ref: "#/components/schemas/VehicleSpec"
+    FlightArchive:
+      type: object
+      required:
+        - initial
+        - commands
+      properties:
+        initial:
+          $ref: "#/components/schemas/InitialFlightWorkspace"
+        commands:
+          type: array
+          maxItems: 2000
+          items:
+            $ref: "#/components/schemas/FlightCommand"
+    FlightCheckpoint:
+      type: object
+      required:
+        - id
+        - date
+        - time
+        - vehicles
+        - digest
+      properties:
+        id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date-time
+        time:
+          type: number
+          minimum: 0
+          maximum: 604800
+        vehicles:
+          type: integer
+          minimum: 1
+          maximum: 8
+        digest:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+    OrbitalConfiguration:
+      type: object
+      additionalProperties: false
+      required:
+        - initialAltitude
+        - targetAltitude
+        - inclination
+        - tolerance
+        - budget
+        - family
+      properties:
+        initialAltitude:
+          type: number
+          minimum: 200
+          maximum: 2000
+        targetAltitude:
+          type: number
+          minimum: 40
+          maximum: 2500
+        inclination:
+          type: number
+          minimum: 0
+          maximum: 180
+        tolerance:
+          type: number
+          minimum: 0.1
+          maximum: 100
+        budget:
+          type: number
+          minimum: 1
+          maximum: 1500
+        family:
+          enum:
+            - transfer
+            - deorbit
+    AuditReceipt:
+      type: object
+      additionalProperties: false
+      required:
+        - sequence
+        - hash
+      properties:
+        sequence:
+          type: integer
+          minimum: 0
+        hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+    AdvancedMissionScenario:
+      type: object
+      additionalProperties: false
+      description: A canonical advanced scenario snapshot. Chaser and target identifiers must differ.
+        Deorbit initializes a circular chaser orbit. Library identity and objective labels override
+        any embedded setting identity. Capture is a logical terminal event, not contact dynamics.
+      required:
+        - schema
+        - id
+        - revision
+        - clientId
+        - title
+        - family
+        - epoch
+        - model
+        - chaser
+        - target
+        - relativePosition
+        - relativeVelocity
+        - holdPoints
+        - holdTolerance
+        - corridorAngle
+        - capture
+        - attitude
+        - budget
+        - deorbit
+        - objectives
+      properties:
+        schema:
+          const: orbital.scenario.v1
+        id:
+          type: string
+          minLength: 1
+          maxLength: 80
+          pattern: ^[-a-zA-Z0-9_]+$
+        revision:
+          type: integer
+          minimum: 1
+          maximum: 1000000000
+        clientId:
+          type: string
+          minLength: 1
+          maxLength: 80
+          pattern: ^[-a-zA-Z0-9_]+$
+        title:
+          type: string
+          minLength: 1
+          maxLength: 90
+        family:
+          enum:
+            - docking
+            - recovery
+            - deorbit
+        epoch:
+          type: string
+          format: date-time
+        model:
+          $ref: "#/components/schemas/ForceModel"
+        chaser:
+          $ref: "#/components/schemas/VehicleSpec"
+        target:
+          $ref: "#/components/schemas/VehicleSpec"
+        relativePosition:
+          type: array
+          items:
+            type: number
+            minimum: -50000
+            maximum: 50000
+          minItems: 3
+          maxItems: 3
+          description: Target rotating RTN frame, metres. Main library range binds the along track component.
+        relativeVelocity:
+          type: array
+          items:
+            type: number
+            minimum: -50
+            maximum: 50
+          minItems: 3
+          maxItems: 3
+          description: Relative velocity in the rotating RTN frame, metres per second.
+        holdPoints:
+          type: array
+          items:
+            type: number
+            minimum: 0.002
+            maximum: 50000
+          minItems: 1
+          maxItems: 8
+          description: Strictly decreasing target distances. Each is at least twice collisionDistance. In
+            proximity scenarios the first is inside initial separation and the final is inside
+            capture.distance.
+        holdTolerance:
+          type: number
+          minimum: 0.01
+          maximum: 20
+        corridorAngle:
+          type: number
+          minimum: 1
+          maximum: 45
+          description: Degrees about the negative along track approach axis.
+        capture:
+          type: object
+          additionalProperties: false
+          required:
+            - distance
+            - speed
+            - angle
+            - angularRate
+            - collisionDistance
+          properties:
+            distance:
+              type: number
+              minimum: 0.1
+              maximum: 20
+            speed:
+              type: number
+              minimum: 0.001
+              maximum: 0.5
+            angle:
+              type: number
+              minimum: 0.1
+              maximum: 10
+            angularRate:
+              type: number
+              minimum: 0.001
+              maximum: 1
+            collisionDistance:
+              type: number
+              minimum: 0.001
+              maximum: 5
+              description: Must not exceed one quarter of capture distance.
+        attitude:
+          type: object
+          additionalProperties: false
+          required:
+            - angle
+            - angularRate
+            - targetRate
+            - authority
+          properties:
+            angle:
+              type: number
+              minimum: -180
+              maximum: 180
+              description: Initial chaser roll angle relative to target, degrees.
+            angularRate:
+              type: number
+              minimum: -5
+              maximum: 5
+              description: Initial absolute chaser rate, degrees per second.
+            targetRate:
+              type: number
+              minimum: -5
+              maximum: 5
+              description: Passive target rate, degrees per second.
+            authority:
+              type: number
+              minimum: 0.01
+              maximum: 1
+              description: Bounded scalar angular acceleration, degrees per square second.
+        budget:
+          type: number
+          minimum: 0.1
+          maximum: 1500
+          description: Total chaser delta V in metres per second.
+        deorbit:
+          type: object
+          additionalProperties: false
+          required:
+            - perigee
+            - entryAltitude
+            - minimumDescentRate
+          properties:
+            perigee:
+              type: number
+              minimum: 40
+              maximum: 119
+            entryAltitude:
+              const: 120
+            minimumDescentRate:
+              type: number
+              minimum: 0.01
+              maximum: 1000
+              description: Positive required descending radial speed in metres per second.
+        objectives:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 160
+          minItems: 3
+          maxItems: 3
+    AdvancedMissionCommand:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - seconds
+          properties:
+            type:
+              const: advance
+            seconds:
+              type: number
+              minimum: 0.5
+              maximum: 10800
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - waypoint
+          properties:
+            type:
+              const: guide
+            waypoint:
+              type: integer
+              minimum: 0
+              maximum: 7
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - axis
+            - deltaV
+          properties:
+            type:
+              const: impulse
+            axis:
+              type: integer
+              enum:
+                - 0
+                - 1
+                - 2
+            deltaV:
+              type: number
+              minimum: -5
+              maximum: 5
+              not:
+                const: 0
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+            - kind
+          properties:
+            type:
+              const: deorbit
+            kind:
+              enum:
+                - impulse
+                - finite
+            thrust:
+              type: number
+              minimum: 10
+              maximum: 20000
+        - type: object
+          additionalProperties: false
+          required:
+            - type
+          properties:
+            type:
+              enum:
+                - attitude
+                - capture
+                - abort
+      description: Guide performs bounded finite thrust to an ordered hold. Attitude advances 60 simulated
+        seconds with scalar roll control. Impulse axes are radial, along track and cross track.
+        Rejected commands preserve the run. Captured, collided, aborted and entered missions are
+        terminal.
+    MissionJournalEntry:
+      type: object
+      additionalProperties: false
+      required:
+        - sequence
+        - time
+        - command
+      properties:
+        sequence:
+          type: integer
+          minimum: 0
+          maximum: 1999
+        time:
+          type: number
+          minimum: 0
+          maximum: 86400
+        command:
+          $ref: "#/components/schemas/AdvancedMissionCommand"
+    MissionEntry:
+      type: object
+      additionalProperties: false
+      required:
+        - time
+        - altitude
+        - radialVelocity
+        - position
+      properties:
+        time:
+          type: number
+          minimum: 0
+          maximum: 86400
+        altitude:
+          type: number
+          description: Localized spherical altitude in km at the 120 km model boundary.
+        radialVelocity:
+          type: number
+          description: Metres per second; descending is negative.
+        position:
+          $ref: "#/components/schemas/Vector"
+    MissionHoldEvent:
+      type: object
+      additionalProperties: false
+      required:
+        - waypoint
+        - time
+        - distance
+        - speed
+      properties:
+        waypoint:
+          type: integer
+          minimum: 0
+          maximum: 7
+        time:
+          type: number
+          minimum: 0
+          maximum: 86400
+        distance:
+          type: number
+          minimum: 0
+        speed:
+          type: number
+          minimum: 0
+    AdvancedMissionMeasurement:
+      type: object
+      additionalProperties: false
+      required:
+        - position
+        - velocity
+        - distance
+        - speed
+        - lateralOffset
+        - corridorLimit
+        - withinCorridor
+        - captureReady
+        - closingSpeed
+        - angle
+        - angularRate
+        - deltaV
+        - mass
+        - time
+        - altitude
+        - perigee
+      properties:
+        position: &a2
+          $ref: "#/components/schemas/Vector"
+        velocity: &a3
+          $ref: "#/components/schemas/Vector"
+        distance: &a4
+          type: number
+          minimum: 0
+        speed: &a5
+          type: number
+          minimum: 0
+        lateralOffset: &a6
+          type: number
+          minimum: 0
+        corridorLimit: &a7
+          type: number
+          minimum: 0
+        withinCorridor: &a8
+          type: boolean
+        captureReady: &a9
+          type: boolean
+        closingSpeed: &a10
+          type: number
+        angle: &a11
+          type: number
+          minimum: -180
+          maximum: 180
+        angularRate: &a12
+          type: number
+        deltaV: &a13
+          type: number
+          minimum: 0
+        mass: &a14
+          type: number
+          minimum: 0.1
+        time: &a15
+          type: number
+          minimum: 0
+          maximum: 86400
+        altitude: &a16
+          type: number
+        perigee: &a17
+          type: number
+    MissionReport:
+      type: object
+      additionalProperties: false
+      description: Score is the rounded fraction of three family checks. Completion also requires no
+        collision, no abort and expenditure within budget. Recovery stabilization checks measured
+        roll angle and rate as well as holds and speed. This is not an operator qualification.
+      required:
+        - complete
+        - score
+        - status
+        - objectives
+        - metrics
+        - entry
+        - holdEvents
+        - recommendation
+        - model
+      properties:
+        complete:
+          type: boolean
+        score:
+          type: integer
+          minimum: 0
+          maximum: 100
+        status:
+          enum:
+            - complete
+            - captured with deviations
+            - collision
+            - aborted
+            - entry reached
+            - in progress
+        objectives:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - id
+              - title
+              - achieved
+            properties:
+              id:
+                type: string
+                pattern: ^ADV[123]$
+              title:
+                type: string
+                minLength: 1
+                maxLength: 160
+              achieved:
+                type: boolean
+          minItems: 3
+          maxItems: 3
+        metrics:
+          type: object
+          additionalProperties: false
+          required:
+            - position
+            - velocity
+            - distance
+            - speed
+            - lateralOffset
+            - corridorLimit
+            - withinCorridor
+            - captureReady
+            - closingSpeed
+            - angle
+            - angularRate
+            - deltaV
+            - mass
+            - time
+            - altitude
+            - perigee
+            - minimumRange
+            - corridorExcursions
+            - propellantUsed
+            - checkpoint
+          properties:
+            position: *a2
+            velocity: *a3
+            distance: *a4
+            speed: *a5
+            lateralOffset: *a6
+            corridorLimit: *a7
+            withinCorridor: *a8
+            captureReady: *a9
+            closingSpeed: *a10
+            angle: *a11
+            angularRate: *a12
+            deltaV: *a13
+            mass: *a14
+            time: *a15
+            altitude: *a16
+            perigee: *a17
+            minimumRange:
+              type: number
+              minimum: 0
+            corridorExcursions:
+              type: integer
+              minimum: 0
+            propellantUsed:
+              type: number
+              minimum: 0
+            checkpoint:
+              type: integer
+              minimum: 0
+              maximum: 8
+        entry:
+          anyOf:
+            - $ref: "#/components/schemas/MissionEntry"
+            - type: "null"
+        holdEvents:
+          type: array
+          items:
+            $ref: "#/components/schemas/MissionHoldEvent"
+          minItems: 0
+          maxItems: 8
+        recommendation:
+          type: string
+        model:
+          type: object
+          additionalProperties: false
+          required:
+            - translation
+            - attitude
+            - boundary
+          properties:
+            translation:
+              type: string
+            attitude:
+              type: string
+            boundary:
+              type: string
+    FlightWorkspace:
+      type: object
+      description: Computed advanced inertial workspace. Mission initial vectors may be set by canonical
+        rotating relative scenario initialization.
+      required:
+        - schema
+        - epoch
+        - time
+        - model
+        - vehicles
+        - plan
+        - completed
+        - events
+        - history
+      properties:
+        schema:
+          const: orbital.flight.v2
+        epoch:
+          type: string
+          format: date-time
+        time:
+          type: number
+          minimum: 0
+          maximum: 604800
+        model:
+          $ref: "#/components/schemas/ForceModel"
+        vehicles:
+          type: array
+          minItems: 1
+          maxItems: 8
+          items:
+            type: object
+            required:
+              - spec
+              - state
+            properties:
+              spec:
+                $ref: "#/components/schemas/VehicleSpec"
+              state:
+                $ref: "#/components/schemas/FlightState"
+        plan:
+          type: array
+          items:
+            $ref: "#/components/schemas/FlightManeuver"
+          minItems: 0
+          maxItems: 64
+        completed:
+          type: array
+          items:
+            type: string
+          minItems: 0
+          maxItems: 1000
+        events:
+          type: array
+          items:
+            type: object
+          minItems: 0
+          maxItems: 2000
+        history:
+          type: array
+          items:
+            type: object
+          minItems: 0
+          maxItems: 5000
+    AdvancedMissionSession:
+      type: object
+      additionalProperties: false
+      required:
+        - schema
+        - scenario
+        - initial
+        - workspace
+        - journal
+        - state
+        - track
+      properties:
+        schema:
+          const: orbital.mission.v1
+        scenario:
+          $ref: "#/components/schemas/AdvancedMissionScenario"
+        initial:
+          $ref: "#/components/schemas/FlightWorkspace"
+        workspace:
+          $ref: "#/components/schemas/FlightWorkspace"
+        journal:
+          type: array
+          items:
+            $ref: "#/components/schemas/MissionJournalEntry"
+          minItems: 0
+          maxItems: 2000
+        state:
+          type: object
+          additionalProperties: false
+          required:
+            - checkpoint
+            - captured
+            - collision
+            - aborted
+            - angle
+            - angularRate
+            - attitudeControl
+            - entry
+            - holdEvents
+            - minimumRange
+            - corridorExcursions
+            - outsideCorridor
+            - deorbitBurn
+          properties:
+            checkpoint:
+              type: integer
+              minimum: 0
+              maximum: 8
+            captured:
+              type: boolean
+            collision:
+              type: boolean
+            aborted:
+              type: boolean
+            angle:
+              type: number
+              minimum: -180
+              maximum: 180
+            angularRate:
+              type: number
+            attitudeControl:
+              type: boolean
+            entry:
+              anyOf:
+                - $ref: "#/components/schemas/MissionEntry"
+                - type: "null"
+            holdEvents:
+              type: array
+              items:
+                $ref: "#/components/schemas/MissionHoldEvent"
+              minItems: 0
+              maxItems: 8
+            minimumRange:
+              type: number
+              minimum: 0
+            corridorExcursions:
+              type: integer
+              minimum: 0
+            outsideCorridor:
+              type: boolean
+            deorbitBurn:
+              type: boolean
+        track:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - time
+              - position
+              - velocity
+              - distance
+              - speed
+            properties:
+              time:
+                type: number
+                minimum: 0
+                maximum: 86400
+              position:
+                $ref: "#/components/schemas/Vector"
+              velocity:
+                $ref: "#/components/schemas/Vector"
+              distance:
+                type: number
+                minimum: 0
+              speed:
+                type: number
+                minimum: 0
+          minItems: 0
+          maxItems: 3001
+    MissionRunEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - mission
+        - session
+        - sequence
+        - receipt
+        - digest
+      properties:
+        id:
+          type: string
+          format: uuid
+        mission:
+          $ref: "#/components/schemas/Mission"
+        session:
+          $ref: "#/components/schemas/AdvancedMissionSession"
+        sequence:
+          type: integer
+          minimum: 0
+          maximum: 2000
+        receipt:
+          $ref: "#/components/schemas/AuditReceipt"
+        digest:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+    MissionRunSummary:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - mission
+        - sequence
+        - receipt
+        - updatedAt
+        - report
+      properties:
+        id:
+          type: string
+          format: uuid
+        mission:
+          $ref: "#/components/schemas/Mission"
+        sequence:
+          type: integer
+          minimum: 0
+          maximum: 2000
+        receipt:
+          $ref: "#/components/schemas/AuditReceipt"
+        updatedAt:
+          type: string
+          format: date-time
+        report:
+          $ref: "#/components/schemas/MissionReport"
+    MissionReportEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - mission
+        - sequence
+        - receipt
+        - report
+      properties:
+        id:
+          type: string
+          format: uuid
+        mission:
+          $ref: "#/components/schemas/Mission"
+        sequence:
+          type: integer
+          minimum: 0
+          maximum: 2000
+        receipt:
+          $ref: "#/components/schemas/AuditReceipt"
+        report:
+          $ref: "#/components/schemas/MissionReport"

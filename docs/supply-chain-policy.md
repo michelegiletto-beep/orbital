@@ -1,0 +1,5 @@
+Dependencies are locked and checked against registry advisories at delivery time. The CycloneDX SBOM includes optional dependencies for other platforms. Uninstalled optional packages may lack local license text; preserve their original archive with any applicable distribution.
+
+Original code remains proprietary to Michele Giletto. Libraries retain their licenses. The allowlist covers permissive licenses and MPL 2.0 for unmodified build tooling Lightning CSS. MPL obligations apply to covered component files; those files are neither modified nor merged into original source. Retain notices and covered source availability when distributing the toolchain. The technical allowlist does not replace recipient contractual review.
+
+SBOM hashes represent lockfile package archive integrity, not compiled-file digests. Approved runners must add build provenance and image digests. No SLSA level or supply chain certification is claimed. Repeat auditing before each promotion because results cover only advisories known at execution time.

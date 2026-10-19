@@ -1,0 +1,42 @@
+{
+  "name": "orbital-workspace",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vite --config apps/web/vite.config.ts --host 127.0.0.1",
+    "api": "tsx apps/api/src/server.ts",
+    "build": "tsc --noEmit && vite build --config apps/web/vite.config.ts && tsc -p apps/api/tsconfig.json",
+    "test": "tsx --test --test-concurrency=1 tests/*.test.ts",
+    "verify": "npm run test && npm run build",
+    "sbom": "node scripts/sbom.mjs",
+    "start": "node dist/api/apps/api/src/server.js",
+    "package": "npm run build && npm run sbom && tsx scripts/package.ts"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "1.9.0",
+    "@opentelemetry/exporter-trace-otlp-http": "0.223.0",
+    "@opentelemetry/sdk-node": "0.223.0",
+    "jose": "6.2.12",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "three": "0.180.0",
+    "ws": "8.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/three": "0.180.0",
+    "@types/ws": "8.18.1",
+    "@vitejs/plugin-react": "6.0.2",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vite": "8.3.4"
+  }
+}

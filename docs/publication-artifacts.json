@@ -1,0 +1,15 @@
+{
+  "version": "0.3.0",
+  "repository": "https://github.com/michelegiletto-beep/orbital",
+  "first_github_publication_date": "2026-10-19",
+  "frozen_source_sha256": "c62efbd963a02654a359d2350302bb68bbc62bac7dfbd88642d486013ea869c2",
+  "frozen_runtime_sha256": "0ad542f98c8eaa49c4be67f30b1f6ffb128473c4e9ad2493efc12b5defd2b151",
+  "source_url": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-source.zip",
+  "runtime_url": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital.zip",
+  "changes_from_frozen_source": [
+    "README public links",
+    "CITATION repository metadata",
+    "This artifact provenance record"
+  ],
+  "software_source_changes": false
+}

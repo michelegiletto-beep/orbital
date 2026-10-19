@@ -1,0 +1,5 @@
+Earth uses the December 2004 Blue Marble Next Generation composite with topography and bathymetry at 5400 by 2700 pixels. Clouds use the 2002 Blue Marble composite at 2048 by 1024 pixels. Both textures ship locally with the product. These are historical observational mosaics, not live imagery. Dynamics use Earth's gravitational parameter and mean radius with the selected force model.
+
+Surface source: [NASA Blue Marble Next Generation](https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg). Cloud source: [NASA Blue Marble Clouds](https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_2048.jpg). Credit: NASA Earth Observatory, Reto Stöckli and Robert Simmon. [Media use guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/). No real mission identifier or logo is used. No endorsement or partnership is implied.
+
+Surface and cloud imagery are credited to NASA Earth Observatory, Reto Stöckli and Robert Simmon. No real mission marks, logos, endorsement or partnership are implied.
