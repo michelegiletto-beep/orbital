@@ -11,13 +11,17 @@ FILES = [
     "linkedin-article.txt", "linkedin-post.txt", "linkedin-image-alt.txt", "technical-paper.md",
     "market-readiness.md", "evaluation-protocol.md", "publication-checklist.md",
     "zenodo-record.json", "CITATION.cff", "render-paper.py", "verify-publication.py",
-    "build-package.py", "measure-release.ts", "requirements.txt", "output/model-evidence.json",
+    "build-package.py", "sync-links.py", "publication-links.json", "linkedin-links.txt", "linkedin-media.json",
+    "measure-release.ts", "requirements.txt", "linkedin-published-project.json", "output/model-evidence.json",
     "output/release-evidence.json",
     "output/media/Orbital-mission-hub.jpg",
+    "output/media/Orbital-deorbit-plan.jpg", "output/media/Orbital-deorbit-review.jpg",
     "output/pdf/Orbital-technical-report.pdf",
     "output/publication-verification.json",
 ]
-manifest = {"status": "publication package prepared; GitHub and Zenodo publication not recorded",
+links = json.loads((BASE / "publication-links.json").read_text(encoding="utf-8"))
+manifest = {"status": "System Labs, GitHub and LinkedIn Projects published; Zenodo pending account login",
+            "destinations": links,
             "creator": "Michele Giletto", "files": []}
 target = OUT / "Orbital-publication.zip"
 OUT.mkdir(parents=True, exist_ok=True)

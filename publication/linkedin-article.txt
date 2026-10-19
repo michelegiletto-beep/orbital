@@ -1,16 +1,16 @@
-Il lavoro su Orbital
+Pianificare e verificare una manovra di uscita dall'orbita
 
-Su Orbital ho portato aggancio, recupero di un veicolo passivo e uscita dall'orbita nello stesso motore di simulazione. Lo scenario si modifica per cliente, viene eseguito e lascia un rapporto con misure, comandi e riproduzione degli eventi.
+Su Orbital sto lavorando al percorso che collega la preparazione di uno scenario alla verifica della manovra. Ho messo al centro la pianificazione dell'uscita dall'orbita, insieme ad aggancio e recupero di un veicolo passivo. Lo scenario si modifica per cliente, viene eseguito e lascia un rapporto con misure, comandi e riproduzione degli eventi.
 
 Il lavoro è partito da una necessità concreta. Chi prepara un'esercitazione deve scegliere le condizioni iniziali, fissare i limiti e spiegare perché il risultato sia accettabile. Volevo tenere insieme queste decisioni e ciò che accade durante la prova.
 
-L'editor permette di creare una raccolta per il cliente e modificare veicoli, masse, propellente, distanze, velocità e criteri di completamento. Ogni revisione conserva la propria definizione. Il risultato resta collegato ai parametri effettivamente usati, anche se lo scenario viene modificato in seguito.
+L'editor permette di creare una raccolta per il cliente e modificare veicoli, masse, propellente, distanze, velocità e limiti della prova. Gli obiettivi seguono la struttura prevista per ciascuna famiglia di missioni. Ogni revisione conserva la propria definizione. Il risultato resta collegato ai parametri effettivamente usati, anche se lo scenario viene modificato in seguito.
 
-Per verificare questo passaggio ho usato uno scenario sintetico con un veicolo da 800 chilogrammi, a 180 metri dal bersaglio. Ho impostato punti di attesa a 80 metri, 12 metri e 20 centimetri. Per accettare l'aggancio, la distanza doveva essere inferiore a 40 centimetri e la velocità relativa inferiore a 3 centimetri al secondo.
+Nel deorbiting posso modificare l'orbita iniziale, la massa del veicolo, il propellente e il perigeo richiesto, poi confrontare una manovra impulsiva con una manovra a spinta finita. Il calcolo tiene conto della variazione di massa durante l'accensione. Il rapporto conserva i parametri della prova, il consumo e le condizioni raggiunte alla quota atmosferica di 120 chilometri.
 
-La prova si è conclusa dopo 336 secondi a circa 22,3 centimetri dal bersaglio, con una velocità relativa di 2,35 millimetri al secondo e 1,832 chilogrammi di propellente consumati. La riproduzione dei comandi ha ricostruito lo stesso stato. Sono valori che permettono di controllare l'esito rispetto ai limiti scelti.
+In uno degli scenari sintetici documentati, la manovra a spinta finita ha portato il veicolo alla quota di 120 chilometri dopo circa 2329 secondi, con una velocità radiale in discesa di circa 175,23 metri al secondo e 45,887 chilogrammi di propellente consumati. La riproduzione dei comandi ha ricostruito lo stesso stato. Sono risultati dell'implementazione nelle condizioni dichiarate, utili per controllare una prova e confrontarla con una variante.
 
-Un istruttore può partire da questo esercizio, cambiare la distanza iniziale o rendere più stretto il limite di velocità e osservare il risultato. Nel recupero può aggiungere la rotazione del bersaglio e verificare l'allineamento del veicolo che si avvicina. Per l'uscita dall'orbita può confrontare una manovra impulsiva con una manovra a spinta finita, tenendo conto della massa e del propellente.
+Il lavoro comprende anche aggancio e recupero. In un esercizio personalizzato ho impostato un veicolo da 800 chilogrammi, una distanza iniziale di 180 metri e punti di attesa a 80 metri, 12 metri e 20 centimetri. La prova di aggancio si è conclusa dopo 336 secondi a circa 22,3 centimetri dal bersaglio, rispettando i limiti impostati. Un istruttore può modificare quei limiti e osservare cosa cambia. Nel recupero può aggiungere la rotazione del bersaglio e verificare l'allineamento del veicolo che si avvicina.
 
 Un tentativo incompleto o interrotto può essere conservato per la valutazione. La cattura viene rifiutata quando non rispetta i limiti impostati. Mi interessa che chi ha eseguito l'esercizio possa rivedere una scelta, individuare lo scostamento e ripetere la prova. Per questo il rapporto e la riproduzione fanno parte dello stesso percorso.
 
@@ -18,7 +18,7 @@ L'interfaccia è scura e in inglese. Le immagini della Terra e le risorse necess
 
 Il modello è destinato alla formazione tecnica. Include gravità con J2 e resistenza atmosferica statica semplificata. L'assetto è rappresentato su un solo asse e l'uscita dall'orbita termina alla quota atmosferica di 120 chilometri. Non calcola riscaldamento, contatto fisico o impatto al suolo e non è qualificato per decisioni di volo. Le prove documentano il funzionamento dell'implementazione; validazione fisica indipendente, benefici formativi e utilità per un cliente restano da verificare.
 
-Il rapporto ESA del 2026 descrive una crescita del traffico orbitale e delle attività di fine vita. È un contesto concreto per esercitarsi su avvicinamento, recupero e smaltimento dei veicoli. La domanda per questo specifico prodotto va verificata sul lavoro di chi lo userà.
+Sto inoltre impostando una struttura agentica di supporto alle decisioni. Riprende gli agenti e le mascotte dell'altro mio progetto, con una preparazione dedicata al dominio orbitale ancora da sviluppare e valutare. L'obiettivo del lavoro è aiutare a leggere uno scenario e le sue evidenze. Questa parte è in sviluppo e non è una capacità operativa della versione pubblicata.
 
 La licenza consente trenta giorni di valutazione interna, con esecuzione e creazione dei propri scenari, senza registrazione o attivazione esterna. Il codice rimane di mia proprietà. Redistribuzione e impiego commerciale richiedono un permesso distinto.
 

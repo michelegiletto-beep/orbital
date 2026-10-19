@@ -1,0 +1,449 @@
+{
+  "schema": "orbital.release-verification.v1",
+  "version": "0.3.0",
+  "verifiedAt": "2026-10-17T06:31:00.774740+00:00",
+  "environment": {
+    "os": "Windows-10-10.0.26200-SP0",
+    "architecture": "AMD64",
+    "node": "v22.13.1",
+    "npm": "10.9.2",
+    "nodeOptions": "--max-old-space-size=768",
+    "testConcurrency": 1
+  },
+  "test": {
+    "tests": 68,
+    "pass": 68,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "durationMs": 66047.8069,
+    "exitCode": 0,
+    "log": "verification-20261017.txt",
+    "logSha256": "a3d197442f07718f098130151a0bbb8d90c3e688de5c148b8b48d0cc27b3438d",
+    "fixtureChange": {
+      "path": "tests/api.test.ts",
+      "sha256": "16b3ee7a36524fca5bf83611100535cb2b86be5317d902cf8943eeee3929f8c0",
+      "description": "OS allocated loopback port; readiness deadline 60 seconds with spawn and exit diagnostics; test allowance 150 seconds for two starts; production refusal test allowance 60 seconds. Functional assertions unchanged."
+    }
+  },
+  "build": {
+    "exitCode": 0,
+    "checks": [
+      "Web TypeScript",
+      "Vite production bundle",
+      "API TypeScript"
+    ],
+    "log": "verification-20261017.txt",
+    "finalArtifactBuild": {
+      "exitCode": 0,
+      "verifiedAt": "2026-10-17T06:37:29.386363+00:00",
+      "command": "npm run package",
+      "log": "package-20261017.txt",
+      "logSha256": "f7adb397af9d8e088b790837f3321d0d0a9725bb43262f7b6092090c0a8c536c"
+    }
+  },
+  "dependencyAudit": {
+    "exitCode": 0,
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "dependencies": {
+      "prod": 78,
+      "dev": 83,
+      "optional": 53,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 160
+    },
+    "log": "dependency-audit-20261017.json"
+  },
+  "package": {
+    "verified": true,
+    "verifiedAt": "2026-10-17T06:37:23.238531+00:00",
+    "version": "0.3.0",
+    "runtime": {
+      "name": "Orbital.zip",
+      "bytes": 5234029,
+      "sha256": "0ad542f98c8eaa49c4be67f30b1f6ffb128473c4e9ad2493efc12b5defd2b151",
+      "entries": 23
+    },
+    "source": {
+      "name": "Orbital-source.zip",
+      "bytes": 5176465,
+      "sha256": "c62efbd963a02654a359d2350302bb68bbc62bac7dfbd88642d486013ea869c2",
+      "entries": 104
+    },
+    "manifest": {
+      "releaseDigestsVerified": true,
+      "releaseSignatureVerified": true,
+      "runtimeFilesAndSignatureVerified": true,
+      "output": "File hashes and signature verified. Trust the public key through your approved channel.",
+      "releaseOutput": "Release signature verified."
+    },
+    "inventory": {
+      "scopedClient": "general",
+      "clientCount": 1,
+      "missionCount": 12,
+      "families": [
+        "avoidance",
+        "deorbit",
+        "docking",
+        "inspection",
+        "recovery",
+        "transfer"
+      ],
+      "sbomComponents": 160,
+      "evaluationPermissionIncluded": true,
+      "credentialPathsAbsent": true,
+      "archiveCrcVerified": true,
+      "sourceHandoffDigestsVerified": true
+    },
+    "startup": {
+      "loopback": true,
+      "httpStatus": 200,
+      "fetched": [
+        "/",
+        "/assets/index-Bb39GgIc.js",
+        "/assets/rolldown-runtime-WkwZ5CU-.js",
+        "/assets/react-DCXMKouZ.js",
+        "/assets/renderer-B_DhWkOD.js",
+        "/assets/renderer-6Y7tETXN.js",
+        "/assets/renderer-DiFzDtG3.js",
+        "/assets/index-DZ_rRmF0.css",
+        "/earth/surface.jpg",
+        "/earth/clouds.jpg",
+        "/orbital-library.json",
+        "/sbom.cdx.json",
+        "/EVALUATION.md"
+      ],
+      "pathTraversalRejected": true,
+      "browserUiChecked": false
+    }
+  },
+  "priorAttempts": [
+    {
+      "tests": 68,
+      "pass": 67,
+      "fail": 1,
+      "reason": "API fixture timed out before readiness during cold loader startup. Bounded fixture readiness now allows 60 seconds and reports spawn and exit errors. Functional assertions unchanged.",
+      "log": "verification-20261017-attempt1.txt"
+    },
+    {
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "reason": "Corrected API fixture verified separately before full suite rerun.",
+      "log": "api-fixture-20261017.txt"
+    }
+  ],
+  "limitations": [
+    "This record covers the tested Windows and Node runtime. It is not an independent flight validation or security certification.",
+    "No operational spacecraft commanding, atmospheric descent or full six degree of freedom contact dynamics is represented.",
+    "Production federation, classified deployment, VR and multiplayer acceptance are not established by this local suite."
+  ],
+  "sourceProvenance": {
+    "recordedAt": "2026-10-17T06:37:02.504283+00:00",
+    "kind": "local source file digests",
+    "gitCommit": null,
+    "note": "Final source handoff includes the client header name merge correction. Full 68 test pass verifies unchanged physics and API behavior. The parent separately browser verified custom client persistence and execution after reload. Final strict TypeScript checks, Vite production bundle, signed archives, source handoff hashes, extraction and loopback HTTP startup passed after that UI correction.",
+    "files": [
+      {
+        "path": "packages/sim-core/src/advanced.ts",
+        "sha256": "fc7b971a6a2fac8d4fe89b532b5c193952fd162808be0972790f050be3c52996"
+      },
+      {
+        "path": "packages/sim-core/src/index.ts",
+        "sha256": "0b2c22e230bc955c7fada5d5000b03852f2acbd08cada3f518add624aee146d1"
+      },
+      {
+        "path": "packages/sim-core/src/missions.ts",
+        "sha256": "12c6a72a478dd913a38448090d5298d237fe8895addfaeb6468650d7c50071b2"
+      },
+      {
+        "path": "packages/sim-core/src/proximity.ts",
+        "sha256": "8caad3f2ad85261f10544862e4443a66d3100dee8a47cb5be314636c3d04bb33"
+      },
+      {
+        "path": "packages/library/src/english.ts",
+        "sha256": "c8e07af65a7c7106cb7d59a0bf7e1d710523035330f8337c9195d5a01a0a8daf"
+      },
+      {
+        "path": "packages/library/src/index.ts",
+        "sha256": "35ddba361781534c2a30cb7c80d6111cebf8afc9bf5faf9736beb660ff340642"
+      },
+      {
+        "path": "apps/api/src/mission-routes.ts",
+        "sha256": "39f0a1e1df0f6e9a4a361906da59284c548a9ad7bdd5d4ae9e2f7eac29e8770d"
+      },
+      {
+        "path": "apps/api/src/server.ts",
+        "sha256": "a44a4f295c0f96560aed53873ade12fcdf161a231b1c22d938d2ae1f0c89825a"
+      },
+      {
+        "path": "apps/api/src/telemetry.ts",
+        "sha256": "0042d8bf8039b22fb1f4941725b8875454e2e0a43ae6498d6a462420dd01cba8"
+      },
+      {
+        "path": "apps/web/src/AdvancedMission.tsx",
+        "sha256": "4ecba12a46c9f4f66ef01d54fef03f224a2a0b6c9f86f0de628e237bdf85e066"
+      },
+      {
+        "path": "apps/web/src/assets.ts",
+        "sha256": "7b2f9071e1148acb798a78a7477a0598897a386b6a4d53848e26783636e23f15"
+      },
+      {
+        "path": "apps/web/src/commercial.css",
+        "sha256": "fd124c65cd3656fb6a9e176f742c7089a045a231d6ec3515a64e7b7fffd5c490"
+      },
+      {
+        "path": "apps/web/src/env.d.ts",
+        "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+      },
+      {
+        "path": "apps/web/src/FlightScene.tsx",
+        "sha256": "ab7706ba01363209a8d03fcd4f403882e41d247fa8cb82eb80b4e749c87ad2d3"
+      },
+      {
+        "path": "apps/web/src/hub.css",
+        "sha256": "20c89ede1719907c9a3f3ce3f478447494d94a9459449b1d0fc1d4f0aa769fa3"
+      },
+      {
+        "path": "apps/web/src/Hub.tsx",
+        "sha256": "e0b468b7ae682b26c399922bbb4f8d0620b8b62b1f7c0093a4d26680ccb2bda3"
+      },
+      {
+        "path": "apps/web/src/library.css",
+        "sha256": "f3e7ca20856d786c2eb69581fe4ceb9d11ddf80629593826269fa68cd9181c30"
+      },
+      {
+        "path": "apps/web/src/Library.tsx",
+        "sha256": "41241b1e2e0c14aac9138202ac4fd521506aaf22a909d9161929bb540e130c8c"
+      },
+      {
+        "path": "apps/web/src/main.tsx",
+        "sha256": "84ba802baca80dbbea4d53a17253de5d840db0b6e4829c958a7bf0af48841915"
+      },
+      {
+        "path": "apps/web/src/missions.css",
+        "sha256": "9b86b8aa7392153f598f6f15bc680c718bc1c14df4bfcceecbdbb0511d7014c9"
+      },
+      {
+        "path": "apps/web/src/Modal.tsx",
+        "sha256": "eb8feb0b48dde2ff4597187a814ee4f937a7299b3c5f369d5c5bbeef81dac265"
+      },
+      {
+        "path": "apps/web/src/proximity.css",
+        "sha256": "80c8a1077f01960ebd7b303b2f7e73d0a81d8becde970a3e11acaf56095ebb7e"
+      },
+      {
+        "path": "apps/web/src/Proximity.tsx",
+        "sha256": "66e814f9ec6b54150772deb1604dbe4550cfc2bc695bd17267a68a5ce92d1818"
+      },
+      {
+        "path": "apps/web/src/ProximityScene.tsx",
+        "sha256": "73c8327a567bd72d8dc1250f43c72ab35c3403cc6708b4672d046f0c9f54d90b"
+      },
+      {
+        "path": "apps/web/src/ScenarioFields.tsx",
+        "sha256": "84e5e3dd51c956ec98e662a8af0e5ea22bb8f724eb37efbd8c705d0ab4de0bfc"
+      },
+      {
+        "path": "apps/web/src/Scene.tsx",
+        "sha256": "b1c66bf7e996f921a60c128b76ac99453009264c582b103c0b55601186363a01"
+      },
+      {
+        "path": "apps/web/src/Simulation.tsx",
+        "sha256": "9d9a80fe6c9cdc60031b5cb09f56113994dcfc3a6dcb11b652715d92a4fa1b92"
+      },
+      {
+        "path": "apps/web/src/style.css",
+        "sha256": "fd6aad9fbbe4aaac4c9cdb949cd529f7b9d853eb4fc29b1ffd6dbe496ba083e0"
+      },
+      {
+        "path": "apps/web/src/transport.ts",
+        "sha256": "4e7b4d791c28abef87ccadd22e85dca29324ff0923ab5ff5cb1034ee183c0904"
+      },
+      {
+        "path": "apps/web/src/workers/analysis.worker.ts",
+        "sha256": "37a07a0173afb88b239062114a53928db0756ab674a18fb985140a7711c0d7a8"
+      },
+      {
+        "path": "apps/web/src/workers/mission.worker.ts",
+        "sha256": "db1b9e6b60cc0f7c00d9cd56191e6c1cd1a2a70ccaf71c13b681236b0e699757"
+      },
+      {
+        "path": "apps/web/src/WorkspaceBoundary.tsx",
+        "sha256": "8cdaefc1066117d4ae609e9edfda257b3d390245de66d61a102fab0f78b5f0dc"
+      },
+      {
+        "path": "package.json",
+        "sha256": "6c7c66b8f4b4e725b0e6ea1602369af7e1eb172b27717c1e706ccbfe7dfef214"
+      },
+      {
+        "path": "package-lock.json",
+        "sha256": "5cdc9b52c555b263647d4ffb624b60fddd5b3e236f6d28fb9a4da6d1e11337a0"
+      },
+      {
+        "path": "scripts/sbom.mjs",
+        "sha256": "be7345024ac283b992cd39e5fcfd86aafebcbd5c9dce0c780bd151fb3ad29216"
+      },
+      {
+        "path": "packages/delivery/src/index.ts",
+        "sha256": "40b8aa37d059ebd9fa3f6be912c621d0ea709ab69e0f447c6fe43fc2314a4adb"
+      },
+      {
+        "path": "scripts/package.ts",
+        "sha256": "d47ccb730fb7ebd8fda5f7229dd46a251a22619ff0f61246a3eee5310843e202"
+      }
+    ],
+    "changesSinceEarlierSnapshot": [
+      "packages/library/src/english.ts",
+      "packages/library/src/index.ts",
+      "apps/web/src/Library.tsx"
+    ],
+    "amendments": [
+      {
+        "recordedAt": "2026-10-17T06:37:02.504283+00:00",
+        "reason": "Final browser QA corrected the mission header client name by merging validated local client names when the general bundled catalog arrives. The parent verified custom client collection persistence and execution after reload. No physics or API behavior changed.",
+        "files": [
+          {
+            "path": "apps/web/src/AdvancedMission.tsx",
+            "previousSha256": "3e18bae53a3e349e30a5a5f17e2b54fc4c0dae68c2d9e22f7ae61ee61727b4ee",
+            "sha256": "4ecba12a46c9f4f66ef01d54fef03f224a2a0b6c9f86f0de628e237bdf85e066"
+          }
+        ]
+      }
+    ]
+  },
+  "sbom": {
+    "exitCode": 0,
+    "components": 160,
+    "version": "0.3.0",
+    "licenses": "allowlist passed",
+    "log": "sbom-20261017.txt",
+    "sha256": "50f73a8e0d16c7435fddb8bf35de9c21dae1d3dce294950b27a7fe9c7c031e7f"
+  },
+  "previousPackages": [
+    {
+      "verified": true,
+      "verifiedAt": "2026-10-17T06:35:34.846932+00:00",
+      "version": "0.3.0",
+      "runtime": {
+        "name": "Orbital.zip",
+        "bytes": 5234014,
+        "sha256": "435df364d77067083543ccea0ae3da3afb3a6473fe0319e7cb95c2ea0246e65f",
+        "entries": 23
+      },
+      "source": {
+        "name": "Orbital-source.zip",
+        "bytes": 5176421,
+        "sha256": "9dc8f842b527349ce049057315ae4d0cfb44f3054f7ba75da6c0dc0e650d2246",
+        "entries": 104
+      },
+      "manifest": {
+        "releaseDigestsVerified": true,
+        "releaseSignatureVerified": true,
+        "runtimeFilesAndSignatureVerified": true,
+        "output": "File hashes and signature verified. Trust the public key through your approved channel.",
+        "releaseOutput": "Release signature verified."
+      },
+      "inventory": {
+        "scopedClient": "general",
+        "clientCount": 1,
+        "missionCount": 12,
+        "families": [
+          "avoidance",
+          "deorbit",
+          "docking",
+          "inspection",
+          "recovery",
+          "transfer"
+        ],
+        "sbomComponents": 160,
+        "evaluationPermissionIncluded": true,
+        "credentialPathsAbsent": true,
+        "archiveCrcVerified": true,
+        "sourceHandoffDigestsVerified": true
+      },
+      "startup": {
+        "loopback": true,
+        "httpStatus": 200,
+        "fetched": [
+          "/",
+          "/assets/index-DG-CqtaN.js",
+          "/assets/rolldown-runtime-WkwZ5CU-.js",
+          "/assets/react-DCXMKouZ.js",
+          "/assets/renderer-B_DhWkOD.js",
+          "/assets/renderer-6Y7tETXN.js",
+          "/assets/renderer-DiFzDtG3.js",
+          "/assets/index-DZ_rRmF0.css",
+          "/earth/surface.jpg",
+          "/earth/clouds.jpg",
+          "/orbital-library.json",
+          "/sbom.cdx.json",
+          "/EVALUATION.md"
+        ],
+        "pathTraversalRejected": true,
+        "browserUiChecked": false
+      }
+    }
+  ],
+  "publicationEvidenceSourceSha256": "b635f2ebc630db64b12b23e09f18fafcf38dcd6966afa3e7815161658d8c4252",
+  "publicationDestinations": {
+    "systemLabs": {
+      "status": "published and browser verified",
+      "project": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+      "application": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/",
+      "technical_report": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf",
+      "runtime": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital.zip",
+      "source": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-source.zip"
+    },
+    "github": {
+      "status": "published",
+      "repository": "https://github.com/michelegiletto-beep/orbital",
+      "release": "https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0",
+      "release_id": 416929336,
+      "tag": "v0.3.0",
+      "commit": "2331cb3537844c940309e2b06841bd51fa90cb82",
+      "prerelease": true,
+      "workflow": "https://github.com/michelegiletto-beep/orbital/actions/runs/39204112333",
+      "workflow_conclusion": "success",
+      "software_and_distribution_files": 110
+    },
+    "zenodo": {
+      "status": "not deposited",
+      "record": null,
+      "doi": null,
+      "blocker": "Direct account login is required. The GitHub login path requests new administration of repository webhooks; authorization was not granted."
+    },
+    "linkedin": {
+      "status": "Project published; article and post copy prepared",
+      "published": true,
+      "project_url_field": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+      "profile": "https://www.linkedin.com/in/michele-giletto-361425312/",
+      "project_id": "1385262128",
+      "title": "Orbital Mission Simulation Hub",
+      "start": "2026-10",
+      "ongoing": true,
+      "description_characters": 1932,
+      "contains_system_labs_link": true,
+      "contains_github_release_link": true,
+      "media_status": "LinkedIn preview generation failed for System Labs and GitHub. Local uploads require Chrome extension file URL permission.",
+      "project_published": true,
+      "article_published": false,
+      "post_published": false,
+      "link_placement": "project description"
+    }
+  },
+  "publicationLinksVerification": {
+    "checkedAt": "2026-10-19",
+    "record": "outputs/orbital/publication-20261019/publication-state.json",
+    "scope": "Recorded browser evidence; this renderer does not perform remote verification"
+  }
+}

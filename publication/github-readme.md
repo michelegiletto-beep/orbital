@@ -2,6 +2,8 @@ Orbital Mission Simulation Hub
 
 Version 0.3.0 is an engineering evaluation release.
 
+[Project and functional walkthrough](https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital), [browser application](https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/) and [technical report](https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf) are available on System Labs. [GitHub release 0.3.0](https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0) is published as an engineering evaluation prerelease. Zenodo has not been deposited and no DOI has been assigned.
+
 Orbital is an engineering training application for configuring orbital exercises, executing maneuvers and reviewing the evidence from each run. It combines a dark English workspace, a mission library, customer scenario authoring and reproducible assessment records.
 
 The intended use is technical instruction and procedure exploration with synthetic spacecraft. Original code remains proprietary to Michele Giletto. EVALUATION.md grants 30 days of internal nonoperational evaluation, including running the application and creating local scenario variants. No registration or activation service is required. Redistribution, paid instruction, production deployment and commercial reuse are outside that permission. Third party components retain their own licenses.
@@ -9,6 +11,8 @@ The intended use is technical instruction and procedure exploration with synthet
 What the application does
 
 Mission control supports multiple spacecraft, scheduled impulsive and finite maneuvers, J2 gravity, engineering atmospheric drag, numerical forecasts and ground tracks. The proximity and disposal workflows bring docking, passive recovery and deorbiting into the advanced numerical workspace. The scenario editor binds vehicle properties, initial relative conditions, ordered hold points, capture limits, recovery rotation, maneuver budget and assessment criteria to a versioned client definition.
+
+Deorbit exercises let an instructor change the initial orbit, vehicle, target perigee and minimum descent rate, choose an impulsive or finite burn and inspect consumption and descending interface conditions at the fixed 120 km boundary. Recorded commands can be replayed against the scenario snapshot rather than a later edited template. Assessment follows the implemented objective structure for each mission family rather than an arbitrary customer rubric.
 
 The library includes transfer, docking, recovery, deorbiting, inspection and separation exercises. Customer collections can contain independent copies of templates. A saved result retains the scenario definition used for the run. Replay reconstructs the event sequence, while the assessment reports the relevant distances, speeds, expenditure and objective checks.
 
@@ -51,6 +55,10 @@ The analytical checks, regression suite, browser exercises and package inspectio
 Commercial evaluation
 
 A suitable first evaluation is one bounded training exercise using a customer's own acceptance criteria. Compare the preparation effort, reproducibility of the run and usefulness of the final review against the current process. Customer scenario adaptation, dedicated libraries and deployment integration are potential paid scopes. No customer adoption, willingness to pay or quantified economic benefit is asserted.
+
+Development in progress
+
+An agent decision support structure is being prepared using the agent mascots shared with the author's other project. Dedicated orbital domain preparation and evaluation are future work. This is not an active agent service in version 0.3.0 and does not change the numerical model or authorize flight decisions.
 
 Documentation
 

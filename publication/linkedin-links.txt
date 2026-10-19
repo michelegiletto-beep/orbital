@@ -1,0 +1,24 @@
+Progetto LinkedIn
+https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital
+
+Applicazione
+https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/
+
+Rapporto tecnico
+https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf
+
+Pacchetto di valutazione
+https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital.zip
+
+Codice sorgente
+https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-source.zip
+
+GitHub
+https://github.com/michelegiletto-beep/orbital
+
+Versione GitHub
+https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0
+
+Zenodo non pubblicato. Nessun DOI è stato assegnato.
+
+I collegamenti sono separati dal testo narrativo per conservarne la forma richiesta.

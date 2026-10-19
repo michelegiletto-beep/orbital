@@ -1,0 +1,23 @@
+{
+  "lead": "output/media/Orbital-deorbit-plan.jpg",
+  "images": [
+    {
+      "file": "output/media/Orbital-deorbit-plan.jpg",
+      "source": "public/orbital/screenshots/deorbit-plan.jpg",
+      "alt_file": "linkedin-image-alt.txt",
+      "context": "Actual version 0.3.0 synthetic device session before the controlled deorbit burn."
+    },
+    {
+      "file": "output/media/Orbital-deorbit-review.jpg",
+      "source": "public/orbital/screenshots/deorbit-review.jpg",
+      "alt": "Rapporto di Orbital dopo una manovra di uscita dall'orbita. I tre obiettivi risultano raggiunti. Sono visibili una quota di 120 chilometri, un consumo di 45,887 chilogrammi e una velocità radiale in discesa di 175,230 metri al secondo. Due grafici mostrano quota e propellente. In basso il registro conserva i due comandi della prova. Il rapporto indica che il calcolo termina a 120 chilometri e non comprende impatto al suolo.",
+      "context": "Actual same device session after the finite burn and coast to descending interface."
+    },
+    {
+      "file": "output/media/Orbital-mission-hub.jpg",
+      "alt": "Interfaccia scura di Orbital durante un esercizio di aggancio assiale. Sono visibili due veicoli sopra la Terra, una separazione di 250,075 metri e una velocità relativa di 0,0078 metri al secondo. Il primo punto di attesa è stato raggiunto. A destra restano i punti successivi, i limiti di cattura e i comandi della missione. La sessione usa il calcolo locale del dispositivo.",
+      "context": "Actual version 0.3.0 synthetic device calculation after the first axial docking hold."
+    }
+  ],
+  "rights": "Copyright 2026 Michele Giletto. Earth imagery retains its included attribution."
+}

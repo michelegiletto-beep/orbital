@@ -1,0 +1,120 @@
+{
+  "status": "publication package verified against measured software evidence",
+  "external_destinations": {
+    "systemLabs": {
+      "status": "published and browser verified",
+      "project": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+      "application": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/",
+      "technical_report": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf",
+      "runtime": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital.zip",
+      "source": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-source.zip"
+    },
+    "github": {
+      "status": "published",
+      "repository": "https://github.com/michelegiletto-beep/orbital",
+      "release": "https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0",
+      "release_id": 416929336,
+      "tag": "v0.3.0",
+      "commit": "2331cb3537844c940309e2b06841bd51fa90cb82",
+      "prerelease": true,
+      "workflow": "https://github.com/michelegiletto-beep/orbital/actions/runs/39204112333",
+      "workflow_conclusion": "success",
+      "software_and_distribution_files": 110
+    },
+    "zenodo": {
+      "status": "not deposited",
+      "record": null,
+      "doi": null,
+      "blocker": "Direct account login is required. The GitHub login path requests new administration of repository webhooks; authorization was not granted."
+    },
+    "linkedin": {
+      "status": "Project published; article and post copy prepared",
+      "published": true,
+      "project_url_field": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+      "profile": "https://www.linkedin.com/in/michele-giletto-361425312/",
+      "project_id": "1385262128",
+      "title": "Orbital Mission Simulation Hub",
+      "start": "2026-10",
+      "ongoing": true,
+      "description_characters": 1932,
+      "contains_system_labs_link": true,
+      "contains_github_release_link": true,
+      "media_status": "LinkedIn preview generation failed for System Labs and GitHub. Local uploads require Chrome extension file URL permission.",
+      "project_published": true,
+      "article_published": false,
+      "post_published": false,
+      "link_placement": "project description"
+    }
+  },
+  "checks": [
+    {
+      "file": "linkedin-project.txt",
+      "characters": 1736,
+      "narrative_check": "passed"
+    },
+    {
+      "file": "linkedin-article.txt",
+      "characters": 4566,
+      "narrative_check": "passed"
+    },
+    {
+      "file": "linkedin-post.txt",
+      "characters": 1551,
+      "narrative_check": "passed"
+    },
+    {
+      "file": "linkedin-image-alt.txt",
+      "characters": 428,
+      "narrative_check": "passed"
+    },
+    {
+      "file": "zenodo-record.json",
+      "metadata_check": "passed",
+      "deposit_created": false
+    },
+    {
+      "file": "model-evidence.json",
+      "cases": 9,
+      "exact_replay": "passed",
+      "evaluation_permission": "bound to LICENSE"
+    },
+    {
+      "file": "release-evidence.json",
+      "software_tests": 68,
+      "build": "passed",
+      "audit_vulnerabilities": 0,
+      "sbom_components": 160,
+      "package_inspection": "passed"
+    },
+    {
+      "file": "Orbital.zip",
+      "frozen_release_hash": "passed",
+      "bytes": 5234029
+    },
+    {
+      "file": "Orbital-source.zip",
+      "frozen_release_hash": "passed",
+      "bytes": 5176465
+    },
+    {
+      "file": "publication-links.json",
+      "system_labs": "published and browser verified",
+      "github": "published",
+      "zenodo": "not deposited",
+      "linkedin_link_sheet": "consistent"
+    },
+    {
+      "file": "linkedin-media.json",
+      "images": 3,
+      "included_files": "passed",
+      "alternative_text": "passed"
+    },
+    {
+      "file": "Orbital-technical-report.pdf",
+      "pages": 6,
+      "sha256": "4895925a6e14fc68361145c404c4093294acefd073fd257b326a08fde77fae15",
+      "text_check": "passed"
+    }
+  ],
+  "remaining_gate": "Zenodo requires direct authenticated account access. LinkedIn Projects is published; media preview generation failed and local uploads require the browser extension file URL permission."
+}

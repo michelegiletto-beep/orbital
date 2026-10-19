@@ -1,9 +1,11 @@
 Orbital
 
-Ho sviluppato Orbital per creare, eseguire e valutare esercitazioni di operazioni orbitali nello stesso ambiente. Il lavoro comprende un motore numerico condiviso tra applicazione e servizio, scenari modificabili per cliente, una libreria di missioni e un rapporto finale che conserva eventi, misure e riproduzione dell'esercizio.
+Ho sviluppato Orbital per preparare, eseguire e valutare esercitazioni di operazioni orbitali. Il lavoro mette al centro la pianificazione dell'uscita dall'orbita e comprende un motore numerico condiviso tra applicazione e servizio, scenari modificabili per cliente e un rapporto finale con eventi, misure e riproduzione dell'esercizio.
 
-Le attività coprono trasferimento orbitale, avvicinamento, aggancio, recupero di un veicolo passivo, ispezione e uscita dall'orbita. Nel centro di simulazione posso configurare più veicoli, gravità con J2, resistenza atmosferica semplificata, manovre impulsive e accensioni di durata definita. Le ipotesi del modello sono documentate e rimangono visibili a chi valuta il prodotto.
+Le attività coprono trasferimento orbitale, avvicinamento, aggancio, recupero di un veicolo passivo, ispezione e uscita dall'orbita. Nel centro di simulazione posso configurare più veicoli, confrontare manovre impulsive e a spinta finita e controllare il consumo di propellente. Il modello include gravità con J2 e resistenza atmosferica semplificata. Il deorbiting termina alla quota atmosferica di 120 chilometri e non calcola impatto o riscaldamento.
 
 L'applicazione ha un'interfaccia scura in inglese, immagini terrestri conservate localmente, pacchetti utilizzabili senza servizi esterni e registrazioni verificabili delle sessioni. Il prodotto è destinato alla formazione tecnica e alla discussione delle procedure. Non è qualificato per prendere decisioni di volo.
 
 Il possibile impiego commerciale riguarda percorsi formativi, librerie di esercizi dedicate e adattamento alle procedure del cliente. La licenza consente trenta giorni di valutazione interna, con esecuzione del software e creazione dei propri scenari. La verifica deve partire da un caso concreto, con obiettivi e criteri di accettazione concordati.
+
+Sto impostando una struttura agentica di supporto alle decisioni che riprende agenti e mascotte dell'altro mio progetto. La preparazione dedicata al dominio orbitale e la relativa valutazione sono ancora da sviluppare. Questa parte è presentata come lavoro futuro.

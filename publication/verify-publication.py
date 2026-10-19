@@ -1,11 +1,15 @@
 """Check publication copy, preparation metadata, and rendered report integrity."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import re
 from pypdf import PdfReader
 
 BASE = Path(__file__).resolve().parent
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--artifacts-dir", type=Path, help="Compare frozen application and source ZIP bytes against release evidence")
+args = parser.parse_args()
 checks = []
 for name in ["linkedin-project.txt", "linkedin-article.txt", "linkedin-post.txt", "linkedin-image-alt.txt"]:
     content = (BASE / name).read_text(encoding="utf-8")
@@ -54,6 +58,45 @@ checks.append({"file": "release-evidence.json", "software_tests": test["pass"],
                "build": "passed", "audit_vulnerabilities": 0, "sbom_components": 160,
                "package_inspection": "passed"})
 
+if args.artifacts_dir:
+    for kind in ["runtime", "source"]:
+        expected = release["package"][kind]
+        artifact = args.artifacts_dir / expected["name"]
+        data = artifact.read_bytes()
+        if len(data) != expected["bytes"] or hashlib.sha256(data).hexdigest() != expected["sha256"]:
+            raise ValueError(f"Frozen {kind} archive differs from verified release")
+        checks.append({"file": artifact.name, "frozen_release_hash": "passed", "bytes": len(data)})
+
+links = json.loads((BASE / "publication-links.json").read_text(encoding="utf-8"))
+destinations = release["publicationDestinations"]
+for source, destination in [("system_labs", "systemLabs"), ("github", "github"), ("zenodo", "zenodo"), ("linkedin", "linkedin")]:
+    if links[source] != destinations[destination]:
+        raise ValueError("Publication destinations are stale; run sync-links.py")
+link_sheet = (BASE / "linkedin-links.txt").read_text(encoding="utf-8")
+for value in links["system_labs"].values():
+    if isinstance(value, str) and value.startswith("https://") and value not in link_sheet:
+        raise ValueError("A verified System Labs URL is missing from the LinkedIn link sheet")
+if links["github"]["status"] != "published" and (links["github"]["repository"] or links["github"]["release"]):
+    raise ValueError("Unverified GitHub URL inserted")
+if links["zenodo"]["status"] != "published" and (links["zenodo"]["record"] or links["zenodo"]["doi"]):
+    raise ValueError("Unverified Zenodo identifier inserted")
+checks.append({"file": "publication-links.json", "system_labs": "published and browser verified",
+               "github": links["github"]["status"], "zenodo": links["zenodo"]["status"],
+               "linkedin_link_sheet": "consistent"})
+
+media = json.loads((BASE / "linkedin-media.json").read_text(encoding="utf-8"))
+if media["lead"] not in [entry["file"] for entry in media["images"]]:
+    raise ValueError("LinkedIn lead image is missing")
+for entry in media["images"]:
+    media_path = (BASE / entry["file"]).resolve()
+    if not media_path.is_relative_to((BASE / "output" / "media").resolve()) or not media_path.is_file():
+        raise ValueError("LinkedIn image must be an included publication image")
+    alt = entry.get("alt") or (BASE / entry["alt_file"]).read_text(encoding="utf-8")
+    if set(alt) & set("-#/–—"):
+        raise ValueError("Forbidden narrative punctuation in image alternative text")
+checks.append({"file": "linkedin-media.json", "images": len(media["images"]),
+               "included_files": "passed", "alternative_text": "passed"})
+
 pdf = BASE / "output" / "pdf" / "Orbital-technical-report.pdf"
 reader = PdfReader(pdf)
 text = "\n".join(page.extract_text() for page in reader.pages)
@@ -68,7 +111,7 @@ checks.append({"file": pdf.name, "pages": len(reader.pages),
 report = {"status": "publication package verified against measured software evidence",
           "external_destinations": release.get("publicationDestinations", {}),
           "checks": checks,
-          "remaining_gate": "GitHub and Zenodo publication require authenticated publishing access and destination verification. LinkedIn copy is prepared for the owner."}
+          "remaining_gate": "Zenodo requires direct authenticated account access. LinkedIn Projects is published; media preview generation failed and local uploads require the browser extension file URL permission."}
 (BASE / "output" / "publication-verification.json").write_text(
     json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
 print(json.dumps(report, indent=2, ensure_ascii=False))

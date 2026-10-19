@@ -2,6 +2,14 @@ Publication control record
 
 This document is an execution checklist, not permission to bypass a failed gate. A draft, local file or reserved DOI is not a public release. Record actual destinations and dates only after confirming them.
 
+Current execution status, 19 October 2026
+
+System Labs and its project walkthrough, application, technical report, runtime ZIP and source ZIP are published. GitHub repository michelegiletto-beep/orbital and release v0.3.0 are published. The release is an engineering evaluation prerelease. Its source and distribution commit is 2331cb3537844c940309e2b06841bd51fa90cb82. Both the source verification workflow and the distribution verification workflow passed. Uploaded source and artifact Git object identifiers match the prepared bytes. The frozen runtime SHA256 remains 0ad542f98c8eaa49c4be67f30b1f6ffb128473c4e9ad2493efc12b5defd2b151.
+
+The LinkedIn profile Projects section contains Orbital Mission Simulation Hub, dated October 2026 to present, with the System Labs and GitHub release destinations in its description. Project record 1385262128 was confirmed in the saved profile. Media previews failed for both destinations. Local upload requires the browser extension file URL permission. No unrelated project was modified.
+
+Zenodo remains unsubmitted. Direct account login is required. GitHub OAuth requested administration of repository webhooks, read access to organization membership and profile data; new authorization was not granted. No record or DOI exists.
+
 Technical gate
 
 Confirm the final mission code, UI and API use the same scenario revision and authoritative replay. Exercise docking, recovery and deorbiting with edited customer parameters. Verify capture rejection outside the allowed envelope, propellant limits, hold point ordering, target rotation checks, burn timing and descending atmospheric entry. Retain the command archives, expected results, actual values and test environment in a synthetic evidence bundle.
@@ -18,7 +26,7 @@ Keep the proprietary LICENSE and its approved EVALUATION.md exception together. 
 
 GitHub
 
-Use the authenticated owner's account and verify the actual owner identity. Proposed repository name: orbital-mission-simulation-hub. The name is a proposal until availability and owner access are verified. Creation and release require account permission to create the repository and write release assets. An existing connected account or authenticated CLI can supply access; never print credentials.
+Use the authenticated owner's account and verify the actual owner identity. Published repository: https://github.com/michelegiletto-beep/orbital. Published evaluation release: https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0. Creation and release require account permission to create the repository and write release assets. An existing connected account or authenticated CLI can supply access; never print credentials.
 
 Create a clean dedicated repository, not a copy of the full SYSTEM LABS portfolio or its history. Stage only approved product files. Inspect the staged diff, secrets scan and license. Use the prepared English README and release text. Upload only the frozen sanitized assets. A draft release can be inspected before publication. Confirm the public page, asset names, download integrity and license after publication. [GitHub release management](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
 
@@ -34,8 +42,8 @@ If GitHub integration is used, Zenodo reads supported repository metadata. If bo
 
 LinkedIn
 
-Use linkedin-project.txt in the Projects section, with the actual public project link in the dedicated URL field. Use linkedin-article.txt as the article body and linkedin-post.txt as the accompanying post. Add a real screenshot from the frozen version and meaningful alternative text. Insert final links only after opening and checking them. Do not claim endorsement, certified compliance, customers, revenue or independent accuracy. The article remains an account of the work and the proposed evaluation.
+Use linkedin-project.txt in the Projects section, with the actual verified destinations in the project description or an available media link field. Use linkedin-article.txt as the article body and linkedin-post.txt as the accompanying post. Add a real screenshot from the frozen version and meaningful alternative text. Insert final links only after opening and checking them. Do not claim endorsement, certified compliance, customers, revenue or independent accuracy. The article remains an account of the work and the proposed evaluation.
 
 Final record
 
-Record the source revision, package version, SHA256 values, test report, repository URL, release URL, Zenodo record URL, DOI, actual publication date and known limitations in release-evidence.json. Until these exist, the correct status is prepared locally, with publication pending.
+Record the source revision, package version, SHA256 values, test report, repository URL, release URL, Zenodo record URL, DOI, actual publication date and known limitations in release-evidence.json. Preserve each destination's actual status separately. System Labs, GitHub and the LinkedIn Projects entry are published. Zenodo remains unsubmitted until direct authenticated access and record verification complete. linkedin-links.txt includes only actual public destinations and plain status statements for absent ones.

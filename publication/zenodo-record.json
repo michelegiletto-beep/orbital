@@ -2,6 +2,9 @@
   "status": "prepared locally, not deposited",
   "software_version": "0.3.0",
   "report_version": "0.3.0",
+  "verified_public_project": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+  "verified_public_report": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf",
+  "publication_access_status": "Direct account login is required. The GitHub login path requests new administration of repository webhooks; authorization was not granted.",
   "record_choice": "technical report first, software as a separate related record if distribution terms are settled",
   "title": "Orbital Mission Simulation Hub: Configurable training scenarios for orbital proximity and disposal",
   "creators": [
@@ -40,5 +43,7 @@
     "An authenticated Zenodo account controlled by Michele Giletto",
     "Permission to publish the selected original files",
     "GitHub account linkage only if automatic repository archiving is deliberately selected"
-  ]
+  ],
+  "verified_github_repository": "https://github.com/michelegiletto-beep/orbital",
+  "verified_github_release": "https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0"
 }

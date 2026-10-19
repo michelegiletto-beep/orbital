@@ -4,7 +4,7 @@ Orbital Mission Simulation Hub
 
 ![Deorbit planning in Orbital](docs/screenshots/deorbit-plan.jpg)
 
-[Download the offline application](distribution/Orbital.zip) and [read the technical report](publication/Orbital-technical-report.pdf).
+[Download the offline application](distribution/Orbital.zip), [read the technical report](publication/Orbital-technical-report.pdf) and [download the publication materials](publication/Orbital-publication.zip).
 
 Version 0.3.0 is an engineering evaluation release for technical training with synthetic spacecraft. Orbital combines a dark English workspace, a mission library, customer scenario authoring, numerical execution and assessment from the recorded commands.
 

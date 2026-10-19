@@ -1,0 +1,233 @@
+{
+  "status": "System Labs, GitHub and LinkedIn Projects published; Zenodo pending account login",
+  "destinations": {
+    "schema": "orbital.publication-links.v1",
+    "checked_at": "2026-10-19",
+    "verification_record": "outputs/orbital/publication-20261019/publication-state.json",
+    "system_labs": {
+      "status": "published and browser verified",
+      "project": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+      "application": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/",
+      "technical_report": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf",
+      "runtime": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital.zip",
+      "source": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-source.zip"
+    },
+    "github": {
+      "status": "published",
+      "repository": "https://github.com/michelegiletto-beep/orbital",
+      "release": "https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0",
+      "release_id": 416929336,
+      "tag": "v0.3.0",
+      "commit": "2331cb3537844c940309e2b06841bd51fa90cb82",
+      "prerelease": true,
+      "workflow": "https://github.com/michelegiletto-beep/orbital/actions/runs/39204112333",
+      "workflow_conclusion": "success",
+      "software_and_distribution_files": 110
+    },
+    "zenodo": {
+      "status": "not deposited",
+      "record": null,
+      "doi": null,
+      "blocker": "Direct account login is required. The GitHub login path requests new administration of repository webhooks; authorization was not granted."
+    },
+    "linkedin": {
+      "status": "Project published; article and post copy prepared",
+      "published": true,
+      "project_url_field": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+      "profile": "https://www.linkedin.com/in/michele-giletto-361425312/",
+      "project_id": "1385262128",
+      "title": "Orbital Mission Simulation Hub",
+      "start": "2026-10",
+      "ongoing": true,
+      "description_characters": 1932,
+      "contains_system_labs_link": true,
+      "contains_github_release_link": true,
+      "media_status": "LinkedIn preview generation failed for System Labs and GitHub. Local uploads require Chrome extension file URL permission.",
+      "project_published": true,
+      "article_published": false,
+      "post_published": false,
+      "link_placement": "project description"
+    },
+    "future_development": {
+      "agent_decision_support": "Structure in development; shared agent mascots; dedicated orbital preparation and evaluation planned; not active in version 0.3.0."
+    }
+  },
+  "creator": "Michele Giletto",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5103,
+      "sha256": "4e0ec2f749e94059f813969a6e5ed6425228fc9695b642121d2bfb2abbd16631"
+    },
+    {
+      "path": "github-readme.md",
+      "bytes": 6298,
+      "sha256": "cc2f96ac763b4527e99db3f64e72e1a4785d0d3a3e96104e0ed7eca964954fb3"
+    },
+    {
+      "path": "github-release.md",
+      "bytes": 1997,
+      "sha256": "9ff9ed2b33fbf45f921442c31c1496d3d0f5743091f83e9d07019bbc2fa40a5f"
+    },
+    {
+      "path": "linkedin-project.txt",
+      "bytes": 1742,
+      "sha256": "4d62365d7ca8284600e6908f5a2b4c750662c2f5a9d83dc1462ee3028bf73668"
+    },
+    {
+      "path": "linkedin-article.txt",
+      "bytes": 4592,
+      "sha256": "30dfceb153fde7aeebcef1d8f65921b3bf94d24ac2d75b95cbcbcf917a3a6f9c"
+    },
+    {
+      "path": "linkedin-post.txt",
+      "bytes": 1554,
+      "sha256": "fd88c49dc51e70d7aef226047d7dc4f1c02b3af88cdd1e6f3f30d534c435a0c9"
+    },
+    {
+      "path": "linkedin-image-alt.txt",
+      "bytes": 431,
+      "sha256": "9146ac851fc5e28e9e437accfeaaf1d055cb1215a204f9a348823d3e5698f7d0"
+    },
+    {
+      "path": "technical-paper.md",
+      "bytes": 16886,
+      "sha256": "3f0c8d6699aebc071a56784fc962a2424bb07be0c8c64e8d233213087040aa6e"
+    },
+    {
+      "path": "market-readiness.md",
+      "bytes": 7692,
+      "sha256": "3f4dc771ad65ca78ffb2c9c6e6f312807af14fafac794473e880fcc18aaf0da2"
+    },
+    {
+      "path": "evaluation-protocol.md",
+      "bytes": 2772,
+      "sha256": "c010adb582c35428d702a479a435e4c548a89e496d629333287740624bc006c8"
+    },
+    {
+      "path": "publication-checklist.md",
+      "bytes": 7405,
+      "sha256": "94845ebef28f09fce36083253d31aa10b83f06ab76e28698b1607ca1ae260309"
+    },
+    {
+      "path": "zenodo-record.json",
+      "bytes": 3444,
+      "sha256": "16df902101356055a4ba0fc314270ec8bfd43e0ad6fba2b5bc59744d9671f28d"
+    },
+    {
+      "path": "CITATION.cff",
+      "bytes": 672,
+      "sha256": "ca727fbe884393e185b79936a6e274a3ec0321cdf6304590b29817e2ce2056f6"
+    },
+    {
+      "path": "render-paper.py",
+      "bytes": 10001,
+      "sha256": "e118e9c649e334a720badec15e8b2d14691d51c378830c841f8f0bd1a718eadb"
+    },
+    {
+      "path": "verify-publication.py",
+      "bytes": 7545,
+      "sha256": "3074f61d9ff5db5d1bba9f7785062c067099744034c3e199f56152bf73129474"
+    },
+    {
+      "path": "build-package.py",
+      "bytes": 2934,
+      "sha256": "9793a3c32c65ace65c08954810584bb5e8325b152f33e5d268934bdcb85b585b"
+    },
+    {
+      "path": "sync-links.py",
+      "bytes": 3961,
+      "sha256": "9680ec3dcaa5728e6737591aa4fc1170f81ccf7bdbeae4ddefc291039131af46"
+    },
+    {
+      "path": "publication-links.json",
+      "bytes": 2534,
+      "sha256": "3f387651a9fad442f2dbdc2cb4ad343098d7d6431d0675c04d7c38b55d411949"
+    },
+    {
+      "path": "linkedin-links.txt",
+      "bytes": 792,
+      "sha256": "329a5cf4d504fb0b0eab927704a4fad528182069ccd84e5362654f0264c078ce"
+    },
+    {
+      "path": "linkedin-media.json",
+      "bytes": 1694,
+      "sha256": "4b463ec84a28953c2e0d30d6d7f6bda4432d042fc59ed2a97ff01d00588b7d9b"
+    },
+    {
+      "path": "measure-release.ts",
+      "bytes": 3600,
+      "sha256": "093b5bfa5b867aa555a06d6a52ca9606b6c94c0895320397006ddf2da0749514"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 31,
+      "sha256": "aff9e2a7514ab38c61169ff48cd7e414e424068c9216e3a9e277318c38a8dac8"
+    },
+    {
+      "path": "linkedin-published-project.json",
+      "bytes": 2317,
+      "sha256": "11b218638df603fc65ef10823d81ffbe9df3b89852d8208978b81dcfc1aed862"
+    },
+    {
+      "path": "output/model-evidence.json",
+      "bytes": 48054,
+      "sha256": "b7e873a6995950c0a0a67df1f2e32c0ef1a5b3344df06ec10913762ab5e75387"
+    },
+    {
+      "path": "output/release-evidence.json",
+      "bytes": 16788,
+      "sha256": "e7308677a84df675175d346d42e4414b38e6d8ef1b75741cecc7e2aa1abf5f67"
+    },
+    {
+      "path": "output/media/Orbital-mission-hub.jpg",
+      "bytes": 58398,
+      "sha256": "7752db5607592a57569a7dadd7ef985bd05c668c7532849bd2d17930518fa75f"
+    },
+    {
+      "path": "output/media/Orbital-deorbit-plan.jpg",
+      "bytes": 105729,
+      "sha256": "98a469627c1b3695f79ee41b326591c7c6b68cd8da8b3d2bbfc1b979a68c37ad"
+    },
+    {
+      "path": "output/media/Orbital-deorbit-review.jpg",
+      "bytes": 104700,
+      "sha256": "e9c5d7fe2e4baf1391f9ca336958b0d7f342ac7d3fcd6baaaf09acc541ae2c12"
+    },
+    {
+      "path": "output/pdf/Orbital-technical-report.pdf",
+      "bytes": 92923,
+      "sha256": "4895925a6e14fc68361145c404c4093294acefd073fd257b326a08fde77fae15"
+    },
+    {
+      "path": "output/publication-verification.json",
+      "bytes": 4337,
+      "sha256": "e466862874ccb81e4dc50a20640a84029b78e42c178a4a0b0fa651e675779255"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 706,
+      "sha256": "1da13a0f2694e98caaf31cffde686ebf11a0aacd097ba12cf144f05ab33998be"
+    },
+    {
+      "path": "EVALUATION.md",
+      "bytes": 2187,
+      "sha256": "c37ec24d072ce5a09bf2b4d6bff537a3c83164cb2119a1bf1f49b9e915d0a575"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 2281,
+      "sha256": "11e77adf7815adcb67d855eb0806f4d8f5271b4fa6ed49558533b1fc217ab817"
+    },
+    {
+      "path": "SECURITY.md",
+      "bytes": 2553,
+      "sha256": "5af85c533724fbc616d4bb988b744bb722a130341dd0c99366a861f646f7821c"
+    },
+    {
+      "path": "verification.md",
+      "bytes": 7266,
+      "sha256": "f8265c1b031f0171fce7ce017a72fba0a3d8e27509ee4bfbae65b5648162f8d2"
+    }
+  ]
+}

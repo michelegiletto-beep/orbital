@@ -1,0 +1,1773 @@
+{
+  "softwareVersion": "0.3.0",
+  "preparedDate": "2026-10-17",
+  "measuredAt": "2026-10-17T06:35:47.549Z",
+  "node": "v22.13.1",
+  "platform": "win32",
+  "interpretation": "Deterministic synthetic implementation cases, not independent physical validation or customer results",
+  "cases": [
+    {
+      "caseId": "docking-axial",
+      "scenarioId": "docking-axial",
+      "family": "docking",
+      "scenarioRevision": 1,
+      "scenarioSha256": "e605766630b17567b9b213277a16ec4d79d370a9d30eb2a11553758ac6ddd760",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "docking-axial",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Axial docking",
+        "family": "docking",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 420,
+          "eccentricity": 0,
+          "inclination": 51.6,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 420,
+          "eccentricity": 0,
+          "inclination": 51.6,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -500,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          250,
+          30,
+          0.5
+        ],
+        "holdTolerance": 0.1,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 1,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 0,
+          "angularRate": 0,
+          "targetRate": 0,
+          "authority": 0.25
+        },
+        "budget": 30,
+        "deorbit": {
+          "perigee": 119,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Maintain the approach corridor",
+          "Respect the contact speed limit",
+          "Complete soft capture"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "guide",
+            "waypoint": 0
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 208.5,
+          "command": {
+            "type": "guide",
+            "waypoint": 1
+          }
+        },
+        {
+          "sequence": 2,
+          "time": 402,
+          "command": {
+            "type": "guide",
+            "waypoint": 2
+          }
+        },
+        {
+          "sequence": 3,
+          "time": 482,
+          "command": {
+            "type": "capture"
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Maintain the approach corridor",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Respect the contact speed limit",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Complete soft capture",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -0.0000399627967467564,
+            -0.5735161045375943,
+            -8.137364293503424e-8
+          ],
+          "velocity": [
+            0.0000015836399672698124,
+            0.007570032364499568,
+            3.9120105298753556e-9
+          ],
+          "distance": 0.5735161059299106,
+          "speed": 0.0075700325301481875,
+          "lateralOffset": 0.00003996287959459789,
+          "corridorLimit": 0.15367317705709174,
+          "withinCorridor": true,
+          "captureReady": true,
+          "closingSpeed": 0.00757003245647104,
+          "angle": 0,
+          "angularRate": 0,
+          "deltaV": 10.20672643643482,
+          "mass": 996.7527947281643,
+          "time": 482,
+          "altitude": 419.47451252375686,
+          "perigee": 408.02945801320766,
+          "minimumRange": 0.5735161059299106,
+          "corridorExcursions": 0,
+          "propellantUsed": 3.2472052718356963,
+          "checkpoint": 3
+        },
+        "entry": null,
+        "holdEvents": [
+          {
+            "waypoint": 0,
+            "time": 208.5,
+            "distance": 250.0752883533995,
+            "speed": 0.007752520514354911
+          },
+          {
+            "waypoint": 1,
+            "time": 402,
+            "distance": 30.074836837926938,
+            "speed": 0.007706028793077785
+          },
+          {
+            "waypoint": 2,
+            "time": 482,
+            "distance": 0.5735161059299106,
+            "speed": 0.0075700325301481875
+          }
+        ],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "recovery-passive",
+      "scenarioId": "recovery-passive",
+      "family": "recovery",
+      "scenarioRevision": 1,
+      "scenarioSha256": "eb5dca432bd4462228ec08f4b5f25c16f1d27bd25afb102d5d79c1ff1050dd61",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "recovery-passive",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Passive spacecraft recovery",
+        "family": "recovery",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 550,
+          "eccentricity": 0,
+          "inclination": 40,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 550,
+          "eccentricity": 0,
+          "inclination": 40,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -800,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          250,
+          30,
+          0.5
+        ],
+        "holdTolerance": 0.1,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 1,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 25,
+          "angularRate": 0,
+          "targetRate": 0.8,
+          "authority": 0.25
+        },
+        "budget": 30,
+        "deorbit": {
+          "perigee": 119,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Reduce relative motion",
+          "Synchronize rotation",
+          "Capture the target"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "attitude"
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 60,
+          "command": {
+            "type": "guide",
+            "waypoint": 0
+          }
+        },
+        {
+          "sequence": 2,
+          "time": 418.5,
+          "command": {
+            "type": "guide",
+            "waypoint": 1
+          }
+        },
+        {
+          "sequence": 3,
+          "time": 612,
+          "command": {
+            "type": "guide",
+            "waypoint": 2
+          }
+        },
+        {
+          "sequence": 4,
+          "time": 692,
+          "command": {
+            "type": "capture"
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Reduce relative motion",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Synchronize rotation",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Capture the target",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -0.00003889373116875566,
+            -0.5735160492024647,
+            -6.875649888327118e-8
+          ],
+          "velocity": [
+            0.0000015417385080178456,
+            0.007570025653665946,
+            3.0729752496970865e-9
+          ],
+          "distance": 0.5735160505212832,
+          "speed": 0.00757002581066456,
+          "lateralOffset": 0.00003889379194271978,
+          "corridorLimit": 0.15367316223008845,
+          "withinCorridor": true,
+          "captureReady": true,
+          "closingSpeed": 0.007570025740813787,
+          "angle": 9.094947017729282e-13,
+          "angularRate": -9.9217603829774e-14,
+          "deltaV": 10.849485286365036,
+          "mass": 996.5486583536958,
+          "time": 692,
+          "altitude": 548.5590214537606,
+          "perigee": 539.8978785308254,
+          "minimumRange": 0.5735160505212832,
+          "corridorExcursions": 0,
+          "propellantUsed": 3.451341646304172,
+          "checkpoint": 3
+        },
+        "entry": null,
+        "holdEvents": [
+          {
+            "waypoint": 0,
+            "time": 418.5,
+            "distance": 250.07526699816188,
+            "speed": 0.007750323969176898
+          },
+          {
+            "waypoint": 1,
+            "time": 612,
+            "distance": 30.07483555275376,
+            "speed": 0.007705895615831438
+          },
+          {
+            "waypoint": 2,
+            "time": 692,
+            "distance": 0.5735160505212832,
+            "speed": 0.00757002581066456
+          }
+        ],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "docking-precision",
+      "scenarioId": "docking-precision",
+      "family": "docking",
+      "scenarioRevision": 1,
+      "scenarioSha256": "f791700aebdf4dea2d859435986de6e7f761b18ad17622d5ece02299dd437b2d",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "docking-precision",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Precision docking",
+        "family": "docking",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 420,
+          "eccentricity": 0,
+          "inclination": 51.6,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 420,
+          "eccentricity": 0,
+          "inclination": 51.6,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -100,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          60,
+          12,
+          0.5
+        ],
+        "holdTolerance": 0.1,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 1,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 0,
+          "angularRate": 0,
+          "targetRate": 0,
+          "authority": 0.25
+        },
+        "budget": 30,
+        "deorbit": {
+          "perigee": 119,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Cancel lateral drift",
+          "Stabilize at the hold point",
+          "Execute final contact"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "guide",
+            "waypoint": 0
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 90,
+          "command": {
+            "type": "guide",
+            "waypoint": 1
+          }
+        },
+        {
+          "sequence": 2,
+          "time": 187,
+          "command": {
+            "type": "guide",
+            "waypoint": 2
+          }
+        },
+        {
+          "sequence": 3,
+          "time": 244,
+          "command": {
+            "type": "capture"
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Cancel lateral drift",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Stabilize at the hold point",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Execute final contact",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -0.00005731328588173823,
+            -0.5747684859770477,
+            -9.6009343003578e-8
+          ],
+          "velocity": [
+            0.0000033274097292642062,
+            0.007698991639941039,
+            5.185535510805877e-9
+          ],
+          "distance": 0.5747684888345651,
+          "speed": 0.007698992358975583,
+          "lateralOffset": 0.0000573133662975383,
+          "corridorLimit": 0.154008751652409,
+          "withinCorridor": true,
+          "captureReady": true,
+          "closingSpeed": 0.007698991933459706,
+          "angle": 0,
+          "angularRate": 0,
+          "deltaV": 5.462624776413476,
+          "mass": 998.2607869837743,
+          "time": 244,
+          "altitude": 419.8428011760534,
+          "perigee": 413.6149755972465,
+          "minimumRange": 0.5747684888345651,
+          "corridorExcursions": 0,
+          "propellantUsed": 1.7392130162256763,
+          "checkpoint": 3
+        },
+        "entry": null,
+        "holdEvents": [
+          {
+            "waypoint": 0,
+            "time": 90,
+            "distance": 60.07494685643215,
+            "speed": 0.007717357270241431
+          },
+          {
+            "waypoint": 1,
+            "time": 187,
+            "distance": 12.073966632917102,
+            "speed": 0.007616422977719287
+          },
+          {
+            "waypoint": 2,
+            "time": 244,
+            "distance": 0.5747684888345651,
+            "speed": 0.007698992358975583
+          }
+        ],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "recovery-close",
+      "scenarioId": "recovery-close",
+      "family": "recovery",
+      "scenarioRevision": 1,
+      "scenarioSha256": "9ad31217de03aa13b87a1e1a7c0c668c9259a81bdc4bd72d482442cd4b64aa05",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "recovery-close",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Close range capture",
+        "family": "recovery",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 500,
+          "eccentricity": 0,
+          "inclination": 35,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 500,
+          "eccentricity": 0,
+          "inclination": 35,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -150,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          90,
+          18,
+          0.5
+        ],
+        "holdTolerance": 0.1,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 1,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 25,
+          "angularRate": 0,
+          "targetRate": 0.8,
+          "authority": 0.25
+        },
+        "budget": 30,
+        "deorbit": {
+          "perigee": 119,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Estimate relative velocity",
+          "Stabilize the target",
+          "Confirm capture"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "attitude"
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 60,
+          "command": {
+            "type": "guide",
+            "waypoint": 0
+          }
+        },
+        {
+          "sequence": 2,
+          "time": 166,
+          "command": {
+            "type": "guide",
+            "waypoint": 1
+          }
+        },
+        {
+          "sequence": 3,
+          "time": 280.5,
+          "command": {
+            "type": "guide",
+            "waypoint": 2
+          }
+        },
+        {
+          "sequence": 4,
+          "time": 346,
+          "command": {
+            "type": "capture"
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Estimate relative velocity",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Stabilize the target",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Confirm capture",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -0.0000520973977835848,
+            -0.5769581594237014,
+            -8.63058673417072e-8
+          ],
+          "velocity": [
+            0.000002758906538767071,
+            0.007924463449590123,
+            4.519602135778404e-9
+          ],
+          "distance": 0.5769581617758185,
+          "speed": 0.007924463929848852,
+          "lateralOffset": 0.00005209746927177753,
+          "corridorLimit": 0.15459547288412775,
+          "withinCorridor": true,
+          "captureReady": true,
+          "closingSpeed": 0.007924463666404763,
+          "angle": 9.094947017729282e-13,
+          "angularRate": -9.9217603829774e-14,
+          "deltaV": 6.747622141570279,
+          "mass": 997.8521038820203,
+          "time": 346,
+          "altitude": 499.52322226659544,
+          "perigee": 494.63013150182087,
+          "minimumRange": 0.5769581617758185,
+          "corridorExcursions": 0,
+          "propellantUsed": 2.1478961179797125,
+          "checkpoint": 3
+        },
+        "entry": null,
+        "holdEvents": [
+          {
+            "waypoint": 0,
+            "time": 166,
+            "distance": 90.07720843520514,
+            "speed": 0.00795023296210527
+          },
+          {
+            "waypoint": 1,
+            "time": 280.5,
+            "distance": 18.076911987013485,
+            "speed": 0.007919707673337708
+          },
+          {
+            "waypoint": 2,
+            "time": 346,
+            "distance": 0.5769581617758185,
+            "speed": 0.007924463929848852
+          }
+        ],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "deorbit-controlled:impulse",
+      "scenarioId": "deorbit-controlled",
+      "family": "deorbit",
+      "scenarioRevision": 1,
+      "scenarioSha256": "11f87ae303ebe0fbaf3a314d5827449f5a44b19db3edd626b38a43dad2d3c963",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "deorbit-controlled",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Controlled deorbit",
+        "family": "deorbit",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 600,
+          "eccentricity": 0,
+          "inclination": 45,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 600,
+          "eccentricity": 0,
+          "inclination": 45,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -1000,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          250,
+          30,
+          0.5
+        ],
+        "holdTolerance": 0.3,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 10,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 0,
+          "angularRate": 0,
+          "targetRate": 0,
+          "authority": 0.25
+        },
+        "budget": 250,
+        "deorbit": {
+          "perigee": 80,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Execute a retrograde burn",
+          "Lower perigee below 120 km",
+          "Reach the entry interface on descent"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "deorbit",
+            "kind": "impulse",
+            "thrust": 800
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 0,
+          "command": {
+            "type": "advance",
+            "seconds": 10800
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Execute a retrograde burn",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Lower perigee below 120 km",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Reach the entry interface on descent",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -13425151.834888387,
+            -633699.5507467353,
+            -844.0089443750912
+          ],
+          "velocity": [
+            270.24943803841825,
+            -887.5321859716532,
+            -0.3095136510935092
+          ],
+          "distance": 13440099.613573357,
+          "speed": 927.7651834890132,
+          "lateralOffset": 13425151.861418854,
+          "corridorLimit": 169799.28286655297,
+          "withinCorridor": false,
+          "captureReady": false,
+          "closingSpeed": 228.1017863221136,
+          "angle": 0,
+          "angularRate": 0,
+          "deltaV": 147.92661539300855,
+          "mass": 953.9552751616354,
+          "time": 2229.0863510438635,
+          "altitude": 120,
+          "perigee": 73.9132485912578,
+          "minimumRange": 13440099.613573357,
+          "corridorExcursions": 0,
+          "propellantUsed": 46.04472483836457,
+          "checkpoint": 0
+        },
+        "entry": {
+          "time": 2229.0863510438635,
+          "altitude": 120,
+          "radialVelocity": -178.77350424954545,
+          "position": [
+            -6044.305811194939,
+            -2348.0520062380256,
+            293.42807765562543
+          ]
+        },
+        "holdEvents": [],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "deorbit-controlled:finite",
+      "scenarioId": "deorbit-controlled",
+      "family": "deorbit",
+      "scenarioRevision": 1,
+      "scenarioSha256": "11f87ae303ebe0fbaf3a314d5827449f5a44b19db3edd626b38a43dad2d3c963",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "deorbit-controlled",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Controlled deorbit",
+        "family": "deorbit",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 600,
+          "eccentricity": 0,
+          "inclination": 45,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 600,
+          "eccentricity": 0,
+          "inclination": 45,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -1000,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          250,
+          30,
+          0.5
+        ],
+        "holdTolerance": 0.3,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 10,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 0,
+          "angularRate": 0,
+          "targetRate": 0,
+          "authority": 0.25
+        },
+        "budget": 250,
+        "deorbit": {
+          "perigee": 80,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Execute a retrograde burn",
+          "Lower perigee below 120 km",
+          "Reach the entry interface on descent"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "deorbit",
+            "kind": "finite",
+            "thrust": 800
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 180,
+          "command": {
+            "type": "advance",
+            "seconds": 10800
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Execute a retrograde burn",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Lower perigee below 120 km",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Reach the entry interface on descent",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -13424129.998532526,
+            -640399.0812250886,
+            -813.9998856195962
+          ],
+          "velocity": [
+            267.70345036579477,
+            -887.3283432525859,
+            -0.1877559887412617
+          ],
+          "distance": 13439396.4843415,
+          "speed": 926.8315711764689,
+          "lateralOffset": 13424130.023211809,
+          "corridorLimit": 171594.41664789544,
+          "withinCorridor": false,
+          "captureReady": false,
+          "closingSpeed": 225.11736398980707,
+          "angle": 0,
+          "angularRate": 0,
+          "deltaV": 147.40856230802018,
+          "mass": 954.1127704159908,
+          "time": 2329.384141128838,
+          "altitude": 119.99999999999909,
+          "perigee": 75.71226245533398,
+          "minimumRange": 13439396.4843415,
+          "corridorExcursions": 0,
+          "propellantUsed": 45.88722958400922,
+          "checkpoint": 0
+        },
+        "entry": {
+          "time": 2329.384141128838,
+          "altitude": 119.99999999999909,
+          "radialVelocity": -175.22983259360797,
+          "position": [
+            -5846.284964897927,
+            -2812.3516559674304,
+            -211.4504017156104
+          ]
+        },
+        "holdEvents": [],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "deorbit-low:impulse",
+      "scenarioId": "deorbit-low",
+      "family": "deorbit",
+      "scenarioRevision": 1,
+      "scenarioSha256": "525e8b72f9b7baeab51b6bde1d5f84a0b073c0c6a7fdd3ce6f7232bfe377c824",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "deorbit-low",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Low orbit departure",
+        "family": "deorbit",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 400,
+          "eccentricity": 0,
+          "inclination": 28.5,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 400,
+          "eccentricity": 0,
+          "inclination": 28.5,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -1000,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          250,
+          30,
+          0.5
+        ],
+        "holdTolerance": 0.3,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 10,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 0,
+          "angularRate": 0,
+          "targetRate": 0,
+          "authority": 0.25
+        },
+        "budget": 250,
+        "deorbit": {
+          "perigee": 80,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Reduce orbital energy",
+          "Verify the perigee",
+          "Cross 120 km on descent"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "deorbit",
+            "kind": "impulse",
+            "thrust": 800
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 0,
+          "command": {
+            "type": "advance",
+            "seconds": 10800
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Reduce orbital energy",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Verify the perigee",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Cross 120 km on descent",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -13243721.895010686,
+            -303842.32431988034,
+            -412.89148502843454
+          ],
+          "velocity": [
+            177.51326200790555,
+            -518.7139569217507,
+            -0.2717654262250459
+          ],
+          "distance": 13247206.873938104,
+          "speed": 548.2473904639711,
+          "lateralOffset": 13243721.901446918,
+          "corridorLimit": 81414.30542790721,
+          "withinCorridor": false,
+          "captureReady": false,
+          "closingSpeed": 165.56915952494225,
+          "angle": 0,
+          "angularRate": 0,
+          "deltaV": 93.41512373699956,
+          "mass": 970.6709104475323,
+          "time": 1987.6408411493849,
+          "altitude": 120,
+          "perigee": 68.64612760469845,
+          "minimumRange": 13247206.873938104,
+          "corridorExcursions": 0,
+          "propellantUsed": 29.329089552467735,
+          "checkpoint": 0
+        },
+        "entry": {
+          "time": 1987.6408411493849,
+          "altitude": 120,
+          "radialVelocity": -146.7013947465979,
+          "position": [
+            -6343.028442741796,
+            -1085.1929910203403,
+            849.3687931687334
+          ]
+        },
+        "holdEvents": [],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "deorbit-low:finite",
+      "scenarioId": "deorbit-low",
+      "family": "deorbit",
+      "scenarioRevision": 1,
+      "scenarioSha256": "525e8b72f9b7baeab51b6bde1d5f84a0b073c0c6a7fdd3ce6f7232bfe377c824",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "deorbit-low",
+        "revision": 1,
+        "clientId": "general",
+        "title": "Low orbit departure",
+        "family": "deorbit",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 400,
+          "eccentricity": 0,
+          "inclination": 28.5,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1000,
+          "dryMass": 700,
+          "isp": 320,
+          "area": 4,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 400,
+          "eccentricity": 0,
+          "inclination": 28.5,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 7,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -1000,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0,
+          0
+        ],
+        "holdPoints": [
+          250,
+          30,
+          0.5
+        ],
+        "holdTolerance": 0.3,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 10,
+          "speed": 0.1,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 0,
+          "angularRate": 0,
+          "targetRate": 0,
+          "authority": 0.25
+        },
+        "budget": 250,
+        "deorbit": {
+          "perigee": 80,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Reduce orbital energy",
+          "Verify the perigee",
+          "Cross 120 km on descent"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "deorbit",
+            "kind": "finite",
+            "thrust": 800
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 115,
+          "command": {
+            "type": "advance",
+            "seconds": 10800
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Reduce orbital energy",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Verify the perigee",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Cross 120 km on descent",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -13243390.130088432,
+            -303377.98356865987,
+            -408.7037291887682
+          ],
+          "velocity": [
+            176.9771753421429,
+            -518.0060680725928,
+            -0.24371453753462607
+          ],
+          "distance": 13246864.55376051,
+          "speed": 547.4041163061227,
+          "lateralOffset": 13243390.136394925,
+          "corridorLimit": 81289.88569860482,
+          "withinCorridor": false,
+          "captureReady": false,
+          "closingSpeed": 165.0674416038393,
+          "angle": 0,
+          "angularRate": 0,
+          "deltaV": 93.37552545895815,
+          "mass": 970.683158876883,
+          "time": 2044.336487838803,
+          "altitude": 120,
+          "perigee": 68.85337701893877,
+          "minimumRange": 13246864.55376051,
+          "corridorExcursions": 0,
+          "propellantUsed": 29.316841123117,
+          "checkpoint": 0
+        },
+        "entry": {
+          "time": 2044.336487838803,
+          "altitude": 120,
+          "radialVelocity": -146.45604151716523,
+          "position": [
+            -6292.388807597614,
+            -1452.1414598125625,
+            655.9034034930189
+          ]
+        },
+        "holdEvents": [],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    },
+    {
+      "caseId": "customer-evaluation",
+      "scenarioId": "customer-evaluation",
+      "family": "docking",
+      "scenarioRevision": 3,
+      "scenarioSha256": "fe49eee50c5b3397f008008c46eef3ac46db2804680eef46bf943f2c8afd84c4",
+      "scenario": {
+        "schema": "orbital.scenario.v1",
+        "id": "customer-evaluation",
+        "revision": 3,
+        "clientId": "synthetic-customer",
+        "title": "Synthetic customer precision approach",
+        "family": "docking",
+        "epoch": "2026-10-16T12:00:00.000Z",
+        "model": {
+          "gravity": "j2",
+          "drag": true,
+          "step": 0.5
+        },
+        "chaser": {
+          "id": "chaser",
+          "name": "CHASER 01",
+          "altitude": 420,
+          "eccentricity": 0,
+          "inclination": 51.6,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 800,
+          "dryMass": 650,
+          "isp": 320,
+          "area": 6,
+          "cd": 2.2,
+          "color": "#a899ff"
+        },
+        "target": {
+          "id": "target",
+          "name": "TARGET 01",
+          "altitude": 420,
+          "eccentricity": 0,
+          "inclination": 51.6,
+          "raan": 24,
+          "anomaly": 32,
+          "mass": 1400,
+          "dryMass": 1200,
+          "isp": 320,
+          "area": 3,
+          "cd": 2.2,
+          "color": "#53d6bc"
+        },
+        "relativePosition": [
+          0,
+          -180,
+          0
+        ],
+        "relativeVelocity": [
+          0,
+          0.015,
+          0
+        ],
+        "holdPoints": [
+          80,
+          12,
+          0.2
+        ],
+        "holdTolerance": 0.03,
+        "corridorAngle": 15,
+        "capture": {
+          "distance": 0.4,
+          "speed": 0.03,
+          "angle": 3,
+          "angularRate": 0.1,
+          "collisionDistance": 0.02
+        },
+        "attitude": {
+          "angle": 0,
+          "angularRate": 0,
+          "targetRate": 0,
+          "authority": 0.25
+        },
+        "budget": 30,
+        "deorbit": {
+          "perigee": 119,
+          "entryAltitude": 120,
+          "minimumDescentRate": 1
+        },
+        "objectives": [
+          "Maintain the approach corridor",
+          "Respect the contact speed limit",
+          "Complete soft capture"
+        ]
+      },
+      "journal": [
+        {
+          "sequence": 0,
+          "time": 0,
+          "command": {
+            "type": "guide",
+            "waypoint": 0
+          }
+        },
+        {
+          "sequence": 1,
+          "time": 143.5,
+          "command": {
+            "type": "guide",
+            "waypoint": 1
+          }
+        },
+        {
+          "sequence": 2,
+          "time": 267,
+          "command": {
+            "type": "guide",
+            "waypoint": 2
+          }
+        },
+        {
+          "sequence": 3,
+          "time": 336,
+          "command": {
+            "type": "capture"
+          }
+        }
+      ],
+      "report": {
+        "complete": true,
+        "score": 100,
+        "status": "complete",
+        "objectives": [
+          {
+            "id": "ADV1",
+            "title": "Maintain the approach corridor",
+            "achieved": true
+          },
+          {
+            "id": "ADV2",
+            "title": "Respect the contact speed limit",
+            "achieved": true
+          },
+          {
+            "id": "ADV3",
+            "title": "Complete soft capture",
+            "achieved": true
+          }
+        ],
+        "metrics": {
+          "position": [
+            -0.000026266816379155733,
+            -0.2227913957115208,
+            -3.9500124865421427e-8
+          ],
+          "velocity": [
+            0.0000019207253161664843,
+            0.002346856382111848,
+            2.594422393584419e-9
+          ],
+          "distance": 0.22279139725993605,
+          "speed": 0.002346857168097706,
+          "lateralOffset": 0.000026266846079347786,
+          "corridorLimit": 0.05969677456150469,
+          "withinCorridor": true,
+          "captureReady": true,
+          "closingSpeed": 0.0023468565922525175,
+          "angle": 0,
+          "angularRate": 0,
+          "deltaV": 7.195066070151601,
+          "mass": 798.1678697655425,
+          "time": 336,
+          "altitude": 419.71814114696554,
+          "perigee": 411.27046313475967,
+          "minimumRange": 0.22279139725993605,
+          "corridorExcursions": 0,
+          "propellantUsed": 1.8321302344575088,
+          "checkpoint": 3
+        },
+        "entry": null,
+        "holdEvents": [
+          {
+            "waypoint": 0,
+            "time": 143.5,
+            "distance": 80.02317143940138,
+            "speed": 0.0023859886147470505
+          },
+          {
+            "waypoint": 1,
+            "time": 267,
+            "distance": 12.02300205249729,
+            "speed": 0.0023685474154058125
+          },
+          {
+            "waypoint": 2,
+            "time": 336,
+            "distance": 0.22279139725993605,
+            "speed": 0.002346857168097706
+          }
+        ],
+        "recommendation": "Objectives achieved. Review the command journal and measured safety margins.",
+        "model": {
+          "translation": "Nonlinear ECI RK4 with configured J2 and co rotating engineering drag; inertial finite thrust and rocket equation mass accounting",
+          "attitude": "Bounded single axis roll tracking; no six degree of freedom contact dynamics",
+          "boundary": "Propagation terminates at the descending 120 km interface; no atmospheric entry or ground impact model"
+        }
+      },
+      "exactReplay": true
+    }
+  ]
+}

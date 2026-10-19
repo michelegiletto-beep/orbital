@@ -1,9 +1,11 @@
-Ho continuato a lavorare su Orbital partendo da un'esigenza precisa: costruire un'esercitazione orbitale, eseguirla e capire cosa è successo senza cambiare ambiente.
+Ho continuato a lavorare su Orbital concentrandomi sulla pianificazione dell'uscita dall'orbita e sulla verifica della manovra.
 
-Ho portato il lavoro su avvicinamento, aggancio, recupero e uscita dall'orbita nel centro di simulazione. Gli scenari si possono modificare per cliente. Parametri iniziali, limiti di avvicinamento, propellente e obiettivi dell'esercizio entrano nel calcolo e nella valutazione finale.
+Posso modificare lo scenario per cliente, scegliere una manovra impulsiva o a spinta finita e seguire il veicolo fino alla quota atmosferica di 120 chilometri. Parametri iniziali, consumo di propellente e condizioni di arrivo rimangono nel rapporto. Lo stesso ambiente comprende avvicinamento, aggancio e recupero di un veicolo passivo.
 
-La parte che considero più utile arriva dopo l'esecuzione. Posso ricostruire i comandi, rivedere gli eventi e confrontare il risultato con i criteri impostati. Una manovra riuscita sullo schermo deve anche lasciare misure che permettano di discuterla.
+La parte che considero più utile arriva dopo l'esecuzione. Posso ricostruire i comandi, rivedere gli eventi e confrontare il risultato con i criteri impostati. Sul sito ho raccolto schermate delle funzioni, applicazione, rapporto tecnico e pacchetti di valutazione.
 
 Ho documentato il modello fisico e i suoi limiti. Orbital è un ambiente di formazione tecnica. L'uso per decisioni di volo richiederebbe una validazione indipendente e un percorso diverso. La licenza consente trenta giorni di valutazione interna, anche creando i propri scenari, senza registrazione o attivazione esterna.
+
+Sto impostando anche una struttura agentica di supporto alle decisioni, riprendendo agenti e mascotte dell'altro mio progetto. Preparazione dedicata al dominio e valutazione sono lavoro futuro. Questa funzione non è attiva nella versione pubblicata.
 
 Cerco un confronto con chi prepara addestramento o procedure per operazioni satellitari. Mi interessa partire da un esercizio reale del proprio lavoro e verificare se il prodotto riduce il tempo necessario a prepararlo, eseguirlo e valutarlo.

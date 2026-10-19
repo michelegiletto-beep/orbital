@@ -1,0 +1,52 @@
+{
+  "schema": "orbital.publication-links.v1",
+  "checked_at": "2026-10-19",
+  "verification_record": "outputs/orbital/publication-20261019/publication-state.json",
+  "system_labs": {
+    "status": "published and browser verified",
+    "project": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+    "application": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/",
+    "technical_report": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-technical-report.pdf",
+    "runtime": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital.zip",
+    "source": "https://giletto-systems-lab.michele-giletto.chatgpt.site/orbital/Orbital-source.zip"
+  },
+  "github": {
+    "status": "published",
+    "repository": "https://github.com/michelegiletto-beep/orbital",
+    "release": "https://github.com/michelegiletto-beep/orbital/releases/tag/v0.3.0",
+    "release_id": 416929336,
+    "tag": "v0.3.0",
+    "commit": "2331cb3537844c940309e2b06841bd51fa90cb82",
+    "prerelease": true,
+    "workflow": "https://github.com/michelegiletto-beep/orbital/actions/runs/39204112333",
+    "workflow_conclusion": "success",
+    "software_and_distribution_files": 110
+  },
+  "zenodo": {
+    "status": "not deposited",
+    "record": null,
+    "doi": null,
+    "blocker": "Direct account login is required. The GitHub login path requests new administration of repository webhooks; authorization was not granted."
+  },
+  "linkedin": {
+    "status": "Project published; article and post copy prepared",
+    "published": true,
+    "project_url_field": "https://giletto-systems-lab.michele-giletto.chatgpt.site/projects/orbital",
+    "profile": "https://www.linkedin.com/in/michele-giletto-361425312/",
+    "project_id": "1385262128",
+    "title": "Orbital Mission Simulation Hub",
+    "start": "2026-10",
+    "ongoing": true,
+    "description_characters": 1932,
+    "contains_system_labs_link": true,
+    "contains_github_release_link": true,
+    "media_status": "LinkedIn preview generation failed for System Labs and GitHub. Local uploads require Chrome extension file URL permission.",
+    "project_published": true,
+    "article_published": false,
+    "post_published": false,
+    "link_placement": "project description"
+  },
+  "future_development": {
+    "agent_decision_support": "Structure in development; shared agent mascots; dedicated orbital preparation and evaluation planned; not active in version 0.3.0."
+  }
+}
